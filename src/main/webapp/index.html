@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fuel cost application</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+
+</head>
+
+<body style="background-image: url('images/1.jpg'); background-repeat: inherit; background-position: center;">
+    <main style=" margin: auto">
+        <div id="welcome" style="text-align: center">
+            <h2>Introduce yourself</h2>
+        </div>
+        <form id="welcomeForm" class="pure-form pure-g pure-form-aligned" style='width: 40%; margin: auto;'>
+            <input class="pure-input-rounded pure-u-1" name="name" placeholder="Enter Your name" autocomplete="off">
+            <fieldset id="langs" class="pure-u-1 pure-control-group">Loading...</fieldset>
+            <button id="btn" class="pure-button pure-button-primary pure-u-1">Submit</button>
+        </form>
+
+
+        <div id="twoColumns" class="pure-g" style="width: initial; text-align: center;">
+            <div class="pure-u-1-2">
+                <form id="carForm" class="pure-form" style="display: none; text-align: center">
+                    <input id="carName" class="pure-input-rounded pure-input-2-3" placeholder="car name" autocomplete="off">
+                    <div class="pure-input-rounded">
+                        <label id="selectFuel">select fuel </label>
+                        <select id="fuelsList" autocomplete="off" class="pure-input-1-1">
+                            <option selected='selected' value=''></option>
+                            <option value='PB'>PB</option>  
+                            <option value='LPG/PB'>LPG/PB</option>
+                              <option value='ON'>ON</option>
+                          </select>
+                    </div>
+
+                    <input id="pbOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="PB consumption l/100km" disabled autocomplete="off">
+                    <input id="lpgOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="LPG consumption l/100km" disabled autocomplete="off">
+                    <input id="onOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="ON consumption l/100km" disabled autocomplete="off">
+                    </br>
+                    </br>
+                    <button id="addCar" class="pure-button pure-button-primary">save car</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="pure-u-1-2">
+                <form id="allCarsForm" class="pure-form" style="display: none;">
+                    <fieldset id="allCars" style="text-align: left;">
+                        <label id="carListTitle" style="text-align: left;">
+                                <h3>Saved cars list:</h3>
+                            </label>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+        <form id="mainForm" class="pure-form" style="display: none; margin:auto; text-align: center ">
+            <fieldset id="avgPrices">
+
+                <label id="prices">
+                    <label id='addDate'></label>
+                <label id='addPrices'></label>
+                </label>
+                </br>
+                </br>
+                <button id="showPrices" class="pure-button pure-button-primary">show prices</button>
+
+
+            </fieldset>
+            <fieldset id='inputLast' style="width:40%; margin: auto; text-align: center;">
+                <label id="mainFormTitle" style="text-align: center">
+                    <h3>Choosen car:</h3>
+                </label>
+                <div id="chosenCar" style="height:40px; text-align:center; border-style:solid;"></div>
+                </br>
+                <label id='fillYourneyAndPriceTitle'> Fill fields with yourney length and fuel price: </label>
+                <input id="kmOnPb" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on PB" disabled autocomplete="off">
+                <input id="kmOnLpg" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on LPG" disabled autocomplete="off">
+                <input id="kmOnOn" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on ON" disabled autocomplete="off">
+                <input id="pbPrice" class="pure-input-rounded pure-input-2-3" placeholder="PB price" disabled autocomplete="off">
+                <input id="lpgPrice" class="pure-input-rounded pure-input-2-3" placeholder="LPG price" disabled autocomplete="off">
+                <input id="onPrice" class="pure-input-rounded pure-input-2-3" placeholder="ON price" disabled autocomplete="off">
+                </br>
+                <button id="clearButton" class="pure-button pure-button-primary">clear fields</button>
+                <button id="calculateButton" class="pure-button pure-button-primary">calculate fuel cost</button>
+                <label id="result">
+                    
+                </label>
+            </fieldset>
+        </form>
+    </main>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+
+</html>

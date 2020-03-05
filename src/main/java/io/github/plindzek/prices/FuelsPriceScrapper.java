@@ -3,10 +3,10 @@
  */
 package io.github.plindzek.prices;
 
-import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 
 /**
  * @author Adam

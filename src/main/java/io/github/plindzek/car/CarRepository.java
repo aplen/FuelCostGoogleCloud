@@ -1,6 +1,3 @@
-/**
- *
- */
 package io.github.plindzek.car;
 
 
@@ -15,23 +12,15 @@ import java.util.Optional;
  *
  */
 @Repository
-public interface CarRepository extends JpaRepository {
-
+public interface CarRepository extends JpaRepository<Car, Integer> {
     List<Car> findAll();
 
-
-    public Optional<Car> findById(Integer id);
-
-
-    public Optional<Car> findByName(String name);
-
-    Car updateCar(Integer id, String newName);
-
+    Optional<Car> findById(Integer id);
 
     Car addCar(Car newCar);
-
-
     boolean deleteCar(Integer id);
-       
+
+//Optional<Car> findByName(String name);
+//Car updateCar(Integer id, String newName);
 
 }

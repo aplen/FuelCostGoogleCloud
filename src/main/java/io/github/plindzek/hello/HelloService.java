@@ -3,13 +3,8 @@ package io.github.plindzek.hello;
 import io.github.plindzek.lang.Lang;
 import io.github.plindzek.lang.LangRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
-/**
- * Service with bussiness logic for HelloServlet
- * @author Adam
- */
 @Service
 class HelloService {
     /**
@@ -29,10 +24,6 @@ class HelloService {
     HelloService(LangRepository repository) {
 	this.repository = repository;
     }
-
-    //String prepareGreeting(String name) {
-	//return prepareGreeting(name, FALLBACK_LANG.getLangId());
-    //}
 
     String prepareGreeting(String name, Integer langId) {
         langId=Optional.ofNullable(langId).orElse(FALLBACK_LANG.getLangId());

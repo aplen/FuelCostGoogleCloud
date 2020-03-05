@@ -1,7 +1,6 @@
 package io.github.plindzek.fuelcost;
 
 import io.github.plindzek.car.Car;
-import io.github.plindzek.prices.FuelsPriceScrapper;
 
 /**
  * @author Adam

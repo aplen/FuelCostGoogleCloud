@@ -1,9 +1,6 @@
 package io.github.plindzek.car;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -20,11 +17,17 @@ public class Car {
     @GenericGenerator(name = "inc", strategy = "increment")
     private Integer id;
     private String name;
+    @Column(name = "lpgpowered")
     private boolean lpgPowered;
+    @Column(name = "pbpowered")
     private boolean pbPowered;
+    @Column(name = "onpowered")
     private boolean onPowered;
+    @Column(name = "onon100km")
     private double onOn100Km;
+    @Column(name = "lpgon100km")
     private double lpgOn100Km;
+    @Column(name = "pbon100km")
     private double pbOn100Km;
 
     @Override

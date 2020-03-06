@@ -17,7 +17,7 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 
     Optional<Car> findById(Integer id);
 
-    Car addCar(Car newCar);
+    Car addCar(Car car);
     boolean deleteCar(Integer id);
 
 //Optional<Car> findByName(String name);

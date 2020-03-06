@@ -7,17 +7,9 @@ import java.util.Optional;
 
 @Service
 class HelloService {
-    /**
-     * default value, when we dont receive "name" in request and we have null
-     */
-    static final String FALLBACK_NAME = "add \"?name=your name\" at the end of this site address";
-    /**
-     * default values, when we dont receive "lang" in request and we have null
-     */
-    static final Lang FALLBACK_LANG = new Lang(1, "Hello", "pl", "Name of car: ",
-	    "Spalanie LPG w litrach na 100km: ", "Cena LPG: ", "Ilość przejechanych kilometrów na LPG: ",
-	    "Spalanie PB95 w litrach na 100 km: ", "Cena PB95: ", "ilość przejechanych kilometrów na PB95: ",
-	    "Koszt trasy wyniesie: ", "Oblicz", "Wyjście", "Zapisz profil", "Wczytaj profil");
+
+    static final String FALLBACK_NAME = "kitty";
+    static final Lang FALLBACK_LANG = new Lang(1,"Hello","pl","Name of car: ","LPG l/100km","LPG price: ","km on LPG: ","pb l/100km","PB95 price: ","km on PB95: ","Trip cost: ","calculate","exit","save","use this car");
 
     private LangRepository repository;
 

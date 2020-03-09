@@ -1,51 +1,34 @@
 package io.github.plindzek.prices;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
+import java.util.List;
 
 /**
- * servlet at the localhost:8080/api/prices
  * return actual fuel prices
  * @author Adam
  */
-
-@WebServlet(displayName = "Fuels Price Servlet", urlPatterns = {"/api/prices"}, name = "Fuels Price Servlet")
-public class FuelsPriceServlet extends HttpServlet {
+@RestController
+@RequestMapping("/api/prices")
+class FuelsPriceServlet {
 
     private final Logger logger = LoggerFactory.getLogger(io.github.plindzek.prices.FuelsPriceServlet.class);
 
     private FuelsPriceService service;
-    private ObjectMapper mapper;
 
-    /*
-     * servlet container needs it
-     */
-    public FuelsPriceServlet() {
-        this(new FuelsPriceService(), new ObjectMapper());
-    }
-
-    FuelsPriceServlet(FuelsPriceService service, ObjectMapper mapper) {
+    FuelsPriceServlet(FuelsPriceService service) {
         this.service = service;
-        this.mapper = mapper;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @GetMapping
+    ResponseEntity<List<String>> getPrices() {
+        logger.info("Request for prices got");
 
-        logger.info("Request got with parameters: " + req.getParameterMap());
-        resp.setContentType("application/json; charset=utf-8");
-
-        mapper.writeValue(resp.getOutputStream(), service.getPrices());
-
+        return ResponseEntity.ok(service.getPrices());
     }
 }
-

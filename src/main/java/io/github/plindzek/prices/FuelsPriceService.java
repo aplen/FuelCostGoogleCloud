@@ -1,5 +1,6 @@
 package io.github.plindzek.prices;
 
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

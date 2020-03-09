@@ -7,7 +7,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class LangService {
+class LangService {
 
     private LangRepository repository;
 
@@ -15,7 +15,7 @@ public class LangService {
         this.repository = repository;
     }
 
-    public List<LangDTO> findAll() {
+    List<LangDTO> findAll() {
         return repository
                 .findAll()
                 .stream()

@@ -1,6 +1,6 @@
 package io.github.plindzek.fuelcost;
 
-public class Trip {
+class Trip {
 
     private double kmOnLpg;
     private double kmOnPb;

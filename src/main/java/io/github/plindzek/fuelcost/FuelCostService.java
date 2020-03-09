@@ -15,7 +15,7 @@ class FuelCostService {
     based on Strategy Pattern
     proper object is created in dependence of which fuel is chosen
      */
-    public double calcCost(Car car, Trip trip) {
+    double calcCost(Car car, Trip trip) {
         if (car.isOnPowered()) {
             fuelCost = new OnCost();
         } else {

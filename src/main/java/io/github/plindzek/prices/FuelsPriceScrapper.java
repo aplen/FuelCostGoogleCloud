@@ -5,6 +5,8 @@ package io.github.plindzek.prices;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -14,8 +16,9 @@ import java.io.IOException;
  */
 public class FuelsPriceScrapper {
 
-
+    private static final Logger logger = LoggerFactory.getLogger(io.github.plindzek.prices.FuelsPriceScrapper.class);
     static Document doc;
+
     /**
      * download site with actual fuel prices
      * @return
@@ -29,7 +32,9 @@ public class FuelsPriceScrapper {
         } catch (IOException ole) {
 
             ole.printStackTrace();
+            logger.info("Prices loading error!");
         }
+        logger.info("Prices loaded successfully!");
         return doc;
     }
 

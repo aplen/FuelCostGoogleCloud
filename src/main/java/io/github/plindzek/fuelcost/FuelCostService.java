@@ -1,18 +1,17 @@
 package io.github.plindzek.fuelcost;
 
 import io.github.plindzek.car.Car;
-import org.springframework.stereotype.Service;
-
-@Service
+/**
+ * @author Adam
+ */
 class FuelCostService {
 
     private FuelCost fuelCost;
 
-//    private CarRepository repository;
-//    FuelCostService(){this(new CarRepository());}
-//
-//    FuelCostService(CarRepository repository){this.repository=repository;}
-
+    /*
+    based on Strategy Pattern
+    proper object is created in dependence of which fuel is chosen
+     */
     public double calcCost(Car car, Trip trip) {
         if (car.isOnPowered()) {
             fuelCost = new OnCost();

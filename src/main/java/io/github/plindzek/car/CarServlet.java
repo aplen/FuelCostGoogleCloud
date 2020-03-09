@@ -12,25 +12,43 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/cars")
 class CarServlet {
 
     private final Logger logger = LoggerFactory.getLogger(CarServlet.class);
     private CarRepository repository;
 
-    CarServlet() {
-
+    CarServlet(CarRepository repository) {
+        this.repository = repository;
     }
 
-    @GetMapping("/cars")
+    @GetMapping
     ResponseEntity<List<Car>> findAllCars() {
         logger.info("Request got");
         return ResponseEntity.ok(repository.findAll());
     }
 
+    @PutMapping("/{id}")
+    ResponseEntity<Car> updateCar(@PathVariable Integer id) {
+        var car = repository.findById(id);
+        car.ifPresent(c -> {
+            c.setName(c.getName());
+            repository.save(c);
+        });
+        return car.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 
-    @PostMapping(path = "/cars/*", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Car> addCar(@RequestBody Car car) {
-        return ResponseEntity.ok(repository.addCar(car));
+    @PostMapping
+    ResponseEntity<Car> saveCar(@RequestBody Car car) {
+        return ResponseEntity.ok(repository.save(car));
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Car> deleteCar(@PathVariable Integer id) {
+        var car = repository.findById(id);
+        car.ifPresent(c -> {
+            repository.delete(c);
+        });
+        return ResponseEntity.ok().build();
     }
 }

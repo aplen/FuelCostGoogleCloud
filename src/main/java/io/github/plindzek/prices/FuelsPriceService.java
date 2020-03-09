@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+create list with prices and parts of text to display
+returns a List instead of a simplier String because of JSON send practising :)
+ */
 @Service
 class FuelsPriceService {
 

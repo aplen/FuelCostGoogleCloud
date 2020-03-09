@@ -26,7 +26,7 @@ class HelloServlet {
 
     @GetMapping(value="/api", params={"lang", "name"})
     String welcome(@RequestParam("lang") Integer langId, @RequestParam("name") String name) {
-        logger.info("Request got");
+        logger.info("Request for welcome message got");
         return service.prepareGreeting(name, langId);
     }
 }

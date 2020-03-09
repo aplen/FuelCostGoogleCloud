@@ -24,12 +24,13 @@ class CarServlet {
 
     @GetMapping
     ResponseEntity<List<Car>> findAllCars() {
-        logger.info("Request got");
+        logger.info("Request for list all cars got");
         return ResponseEntity.ok(repository.findAll());
     }
 
     @PutMapping("/{id}")
     ResponseEntity<Car> updateCar(@PathVariable Integer id) {
+        logger.info("Request for update car got");
         var car = repository.findById(id);
         car.ifPresent(c -> {
             c.setName(c.getName());
@@ -40,11 +41,13 @@ class CarServlet {
 
     @PostMapping
     ResponseEntity<Car> saveCar(@RequestBody Car car) {
+        logger.info("Request for add car got");
         return ResponseEntity.ok(repository.save(car));
     }
 
     @DeleteMapping("/{id}")
     ResponseEntity<Car> deleteCar(@PathVariable Integer id) {
+        logger.info("Request for delete car got");
         var car = repository.findById(id);
         car.ifPresent(c -> {
             repository.delete(c);

@@ -219,7 +219,7 @@
                         .then(processOkResponse)
                         .then((text) => {
                             document.getElementById('result').innerHTML = `
-                    <h2>the cost of Your trip is ${text}PLN!</h2>`;
+                    <h2>The cost of trip is ${text}PLN!</h2>`;
                         })
 
                     .catch(console.warn);

@@ -1,9 +1,12 @@
 package io.github.plindzek.fuelcost;
 
 import io.github.plindzek.car.Car;
+import org.springframework.stereotype.Service;
+
 /**
  * @author Adam
  */
+@Service
 class FuelCostService {
 
     private FuelCost fuelCost;

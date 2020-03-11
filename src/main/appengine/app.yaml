@@ -1,7 +1,8 @@
-runtime: java11
+runtime: java
+threadsafe: true
+instance_class: F4
 env: flex
+
 handlers:
-- url: /.*
-  script: this field is required, but ignored
-manual_scaling:
-  instances: 1
+  - url: /.*
+    script: this field is required, but ignored

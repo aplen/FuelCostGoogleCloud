@@ -10,11 +10,10 @@
     </parent>
     <groupId>io.github.plindzek</groupId>
     <artifactId>FuelCostSpringWebapp</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0-0-1</version>
     <packaging>war</packaging>
     <name>FuelCost</name>
     <description>my first webapp with Spring</description>
-
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -27,12 +26,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-gcp-starter</artifactId>
             <version>1.0.0.RELEASE</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/appengine-maven-plugin -->
-        <dependency>
-            <groupId>com.google.cloud.tools</groupId>
-            <artifactId>appengine-maven-plugin</artifactId>
-            <version>2.2.0</version>
         </dependency>
 
         <dependency>
@@ -99,7 +92,11 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.2.0</version>
+                <configuration>
+                    <version>1</version>
+                    <projectId>wise-mantra-270807</projectId>
 
+                </configuration>
             </plugin>
         </plugins>
     </build>

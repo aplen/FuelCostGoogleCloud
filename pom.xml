@@ -15,6 +15,10 @@
     <name>FuelCost</name>
     <description>my first webapp with Spring</description>
 
+    <properties>
+        <java.version>12</java.version>
+
+    </properties>
 
     <dependencies>
         <dependency>

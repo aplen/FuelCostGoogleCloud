@@ -16,7 +16,7 @@
     <description>my first webapp with Spring</description>
 
     <properties>
-        <java.version>12</java.version>
+        <java.version>10</java.version>
 
     </properties>
 

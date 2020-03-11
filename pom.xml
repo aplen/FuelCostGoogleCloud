@@ -16,7 +16,9 @@
     <description>my first webapp with Spring</description>
 
     <properties>
-        <java.version>10</java.version>
+        <java.version>12</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
     </properties>
 

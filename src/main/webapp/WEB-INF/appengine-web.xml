@@ -3,5 +3,6 @@
     <application>wise-mantra-270807</application><!-- unused for Cloud SDK based tooling -->
     <version>0.0.1-SNAPSHOT</version><!-- unused for Cloud SDK based tooling -->
     <threadsafe>true</threadsafe>
+    <runtime><Java12></Java12></runtime>
 </appengine-web-app>
 

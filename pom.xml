@@ -27,9 +27,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.cloud.tools/appengine-maven-plugin -->
         <dependency>
-            <groupId>com.google.cloud.tools</groupId>
+            <groupId>com.google.appengine</groupId>
             <artifactId>appengine-maven-plugin</artifactId>
-            <version>2.2.0</version>
+            <version>1.9.77</version>
         </dependency>
 
         <dependency>
@@ -93,9 +93,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.google.cloud.tools</groupId>
+                <groupId>com.google.appengine</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>2.2.0</version>
+                <version>1.9.77</version>
             </plugin>
         </plugins>
     </build>

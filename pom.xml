@@ -10,25 +10,44 @@
     </parent>
     <groupId>io.github.plindzek</groupId>
     <artifactId>FuelCostSpringWebapp</artifactId>
-    <version>0-0-1</version>
-    <packaging>war</packaging>
+    <version>2</version>
+    <packaging>jar</packaging>
     <name>FuelCost</name>
     <description>my first webapp with Spring</description>
     <properties>
         <java.version>11</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
 
     </properties>
+	
+
+
+  <dependencyManagement>
+      <dependencies>
+          <dependency>
+              <!-- Import dependency management from Spring Boot -->
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-dependencies</artifactId>
+              <version>2.2.5.RELEASE</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
+
+          <dependency>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-dependencies</artifactId>
+              <version>Hoxton.SR3</version>
+              <type>pom</type>
+              <scope>import</scope>
+          </dependency>
+      </dependencies>
+  </dependencyManagement>
+
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-gcp-starter</artifactId>
-            <version>1.0.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
+             <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
@@ -37,11 +56,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <!-- Exclude the Tomcat dependency -->
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
+                   <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
@@ -51,10 +66,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
+			<version>2.2.5.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>6.2.4</version>
         </dependency>
 
 
@@ -84,21 +101,17 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
+                     <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.2.0</version>
                 <configuration>
-                    <version>1</version>
+                    <version>2</version>
                     <projectId>wise-mantra-270807</projectId>
 
                 </configuration>
             </plugin>
-        </plugins>
+                    </plugins>
     </build>
 
 </project>

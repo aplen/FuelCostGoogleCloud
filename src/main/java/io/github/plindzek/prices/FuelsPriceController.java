@@ -15,13 +15,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/prices")
-class FuelsPriceServlet {
+class FuelsPriceController {
 
-    private final Logger logger = LoggerFactory.getLogger(io.github.plindzek.prices.FuelsPriceServlet.class);
+    private final Logger logger = LoggerFactory.getLogger(FuelsPriceController.class);
 
     private FuelsPriceService service;
 
-    FuelsPriceServlet(FuelsPriceService service) {
+    FuelsPriceController(FuelsPriceService service) {
         this.service = service;
     }
 

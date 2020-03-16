@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/fuelcost")
-class FuelCostServlet {
+class FuelCostController {
 
-    private final Logger logger = LoggerFactory.getLogger(io.github.plindzek.fuelcost.FuelCostServlet.class);
+    private final Logger logger = LoggerFactory.getLogger(FuelCostController.class);
     private FuelCostService service;
     private CarRepository repository;
 
-    FuelCostServlet(FuelCostService service, CarRepository repository) {
+    FuelCostController(FuelCostService service, CarRepository repository) {
         this.service = service;
         this.repository = repository;
 

@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-class LangServlet {
-    private final Logger logger = LoggerFactory.getLogger(io.github.plindzek.lang.LangServlet.class);
+class LangController {
+    private final Logger logger = LoggerFactory.getLogger(LangController.class);
     private LangService service;
 
-    LangServlet(LangService service) {
+    LangController(LangService service) {
         this.service = service;
     }
 

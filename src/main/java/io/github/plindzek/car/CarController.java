@@ -13,12 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cars")
-class CarServlet {
+class CarController {
 
-    private final Logger logger = LoggerFactory.getLogger(CarServlet.class);
+    private final Logger logger = LoggerFactory.getLogger(CarController.class);
     private CarRepository repository;
 
-    CarServlet(CarRepository repository) {
+    CarController(CarRepository repository) {
         this.repository = repository;
     }
 

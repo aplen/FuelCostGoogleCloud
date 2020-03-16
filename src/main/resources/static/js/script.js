@@ -1,6 +1,6 @@
     (function() {
-            const API_URL = 'https://wise-mantra-270807.appspot.com/api';
-
+  //          const API_URL = 'https://wise-mantra-270807.appspot.com/api';
+            const API_URL = 'http://localhost:8080/api';
             const fuelsList = document.getElementById('fuelsList');
             const carName = document.getElementById('carName');
             const pbOn100Km = document.getElementById('pbOn100Km');

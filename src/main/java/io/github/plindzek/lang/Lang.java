@@ -50,7 +50,7 @@ public class Lang {
     private String loadProfileButton;
 
     /*
-     * Hibernate needs this constructor
+     * Spring needs this constructor
      */
     Lang() {
     }

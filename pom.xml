@@ -10,43 +10,19 @@
     </parent>
     <groupId>io.github.plindzek</groupId>
     <artifactId>FuelCostSpringWebapp</artifactId>
-    <version>2</version>
+    <version>0-0-2</version>
     <packaging>jar</packaging>
     <name>FuelCost</name>
     <description>my first webapp with Spring</description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-
     </properties>
-	
-
-
-  <dependencyManagement>
-      <dependencies>
-          <dependency>
-              <!-- Import dependency management from Spring Boot -->
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-dependencies</artifactId>
-              <version>2.2.5.RELEASE</version>
-              <type>pom</type>
-              <scope>import</scope>
-          </dependency>
-
-          <dependency>
-              <groupId>org.springframework.cloud</groupId>
-              <artifactId>spring-cloud-dependencies</artifactId>
-              <version>Hoxton.SR3</version>
-              <type>pom</type>
-              <scope>import</scope>
-          </dependency>
-      </dependencies>
-  </dependencyManagement>
-
 
     <dependencies>
-             <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
@@ -56,7 +32,7 @@
 
             <exclusions>
                 <!-- Exclude the Tomcat dependency -->
-                   <exclusion>
+                <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </exclusion>
@@ -66,24 +42,25 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
-			<version>2.2.5.RELEASE</version>
+            <version>2.2.5.RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>6.2.4</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>compile</scope>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
@@ -91,6 +68,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -107,9 +90,9 @@
                 <version>2.2.5.RELEASE</version>
                 <executions>
                     <execution>
-<configuration>
-    <mainClass>io.github.plindzek.FuelCostApplication</mainClass>
-</configuration>
+                        <configuration>
+                            <mainClass>io.github.plindzek.FuelCostApplication</mainClass>
+                        </configuration>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
@@ -121,14 +104,12 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.2.0</version>
-
-                         <configuration>
-
-                    <version>2</version>
+                <configuration>
+                    <version>0-0-2</version>
                     <projectId>wise-mantra-270807</projectId>
                 </configuration>
             </plugin>
-                    </plugins>
+        </plugins>
     </build>
 
 </project>

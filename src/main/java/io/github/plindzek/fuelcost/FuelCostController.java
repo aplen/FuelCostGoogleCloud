@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 class FuelCostController {
 
     private final Logger logger = LoggerFactory.getLogger(FuelCostController.class);
-    private FuelCostService service;
+    private FuelCostService fuelCostService;
     private CarRepository repository;
 
-    FuelCostController(FuelCostService service, CarRepository repository) {
-        this.service = service;
+    FuelCostController(FuelCostService fuelCostService, CarRepository repository) {
+        this.fuelCostService = fuelCostService;
         this.repository = repository;
 
     }
@@ -26,7 +26,7 @@ class FuelCostController {
     ResponseEntity<Double> getResult(@PathVariable Integer id, @RequestBody Trip trip){
     logger.info("Request got with path info");
     var car = repository.findById(id).orElse(null);
-    return ResponseEntity.ok(service.calcCost(car, trip));
+    return ResponseEntity.ok(fuelCostService.calcCost(car, trip));
         }
     }
 

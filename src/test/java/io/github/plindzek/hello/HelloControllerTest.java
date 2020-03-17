@@ -24,11 +24,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HelloControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    //@Autowired to call service methods or @MockBean to use mocked service
     @MockBean
     private HelloService service;
 
     @Test
     public void shouldReturnExpectedText() throws Exception {
+        //service mocking
         when(service.prepareGreeting(null, null)).thenReturn("Siema" + "<br />" + "kitty" + "!");
 
         mockMvc
@@ -50,7 +53,7 @@ public class HelloControllerTest {
                 .andExpect(status().isOk())
 
                 .andExpect(content().string(containsString("Siema<br />Adam!")));
-
+//checks whether the mock has been called the specified number of times
         verify(service, times(1)).prepareGreeting(anyString(), anyInt());
 
     }

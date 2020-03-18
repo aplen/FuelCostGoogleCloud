@@ -57,4 +57,16 @@ class Trip {
     public void setKmOnOn(double kmOnOn) {
         this.kmOnOn = kmOnOn;
     }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "kmOnLpg=" + kmOnLpg +
+                ", kmOnPb=" + kmOnPb +
+                ", kmOnOn=" + kmOnOn +
+                ", lpgPrice=" + lpgPrice +
+                ", pbPrice=" + pbPrice +
+                ", onPrice=" + onPrice +
+                '}';
+    }
 }

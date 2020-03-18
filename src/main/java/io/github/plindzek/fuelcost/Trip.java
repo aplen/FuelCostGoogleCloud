@@ -9,27 +9,27 @@ class Trip {
     private double pbPrice;
     private double onPrice;
 
-    double getLpgPrice() {
+    public double getLpgPrice() {
         return lpgPrice;
     }
 
-    void setLpgPrice(double lpgPrice) {
+    public void setLpgPrice(double lpgPrice) {
         this.lpgPrice = lpgPrice;
     }
 
-    double getPbPrice() {
+    public double getPbPrice() {
         return pbPrice;
     }
 
-    void setPbPrice(double pbPrice) {
+    public void setPbPrice(double pbPrice) {
         this.pbPrice = pbPrice;
     }
 
-    double getOnPrice() {
+    public double getOnPrice() {
         return onPrice;
     }
 
-    void setOnPrice(double onPrice) {
+    public void setOnPrice(double onPrice) {
         this.onPrice = onPrice;
     }
 
@@ -37,10 +37,7 @@ class Trip {
         return kmOnLpg;
     }
 
-    public void setKmOnLpg(double kmOnLpg) {
-        this.kmOnLpg = kmOnLpg;
-
-    }
+    public void setKmOnLpg(double kmOnLpg) { this.kmOnLpg = kmOnLpg; }
 
     public double getKmOnPb() {
         return kmOnPb;

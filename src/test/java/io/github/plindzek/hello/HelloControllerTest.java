@@ -27,12 +27,12 @@ public class HelloControllerTest {
 
     //@Autowired to call service methods or @MockBean to use mocked service
     @MockBean
-    private HelloService service;
+    private HelloService helloService;
 
     @Test
     public void shouldReturnExpectedText() throws Exception {
         //service mocking
-        when(service.prepareGreeting(null, null)).thenReturn("Siema" + "<br />" + "kitty" + "!");
+        when(helloService.prepareGreeting(null, null)).thenReturn("Siema" + "<br />" + "kitty" + "!");
 
         mockMvc
                 .perform(get("/api"))
@@ -43,7 +43,7 @@ public class HelloControllerTest {
 
     @Test
     public void shouldReturnExpectedTextWithParameters() throws Exception {
-        when(service.prepareGreeting("Adam", 1)).thenReturn("Siema<br />Adam!");
+        when(helloService.prepareGreeting("Adam", 1)).thenReturn("Siema<br />Adam!");
 
         mockMvc
                 .perform(get("/api")
@@ -54,7 +54,7 @@ public class HelloControllerTest {
 
                 .andExpect(content().string(containsString("Siema<br />Adam!")));
 //checks whether the mock has been called the specified number of times
-        verify(service, times(1)).prepareGreeting(anyString(), anyInt());
+        verify(helloService, times(1)).prepareGreeting(anyString(), anyInt());
 
     }
 

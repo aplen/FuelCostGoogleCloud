@@ -15,18 +15,16 @@ class FuelCostController {
 
     private final Logger logger = LoggerFactory.getLogger(FuelCostController.class);
     private FuelCostService fuelCostService;
-    private CarRepository repository;
 
-    FuelCostController(FuelCostService fuelCostService, CarRepository repository) {
+    FuelCostController(FuelCostService fuelCostService) {
         this.fuelCostService = fuelCostService;
-        this.repository = repository;
 
     }
 @PostMapping("/{id}")
     ResponseEntity<Double> getResult(@PathVariable Integer id, @RequestBody Trip trip){
-    logger.info("Request got with path info");
-    var car = repository.findById(id).orElse(null);
-    return ResponseEntity.ok(fuelCostService.calcCost(car, trip));
+
+    logger.info("Request got with car id " +id+ " and " + trip);
+    return ResponseEntity.ok(fuelCostService.calcCost(id, trip));
         }
     }
 

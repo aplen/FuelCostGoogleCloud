@@ -1,6 +1,7 @@
 package io.github.plindzek.fuelcost;
 
 import io.github.plindzek.car.Car;
+import io.github.plindzek.car.CarRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,10 +10,16 @@ import org.springframework.stereotype.Service;
 @Service
 class FuelCostService {
 
+    private CarRepository carRepository;
     private FuelCost fuelCost;
 
-  double calcCost(Car car, Trip trip) {
-        this.selectFuel(car);
+    FuelCostService(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
+
+    double calcCost(Integer id, Trip trip) {
+      var car = carRepository.findById(id).orElse(null);
+      this.selectFuel(car);
         return fuelCost.calculateFuelCost(car, trip);
     }
 

@@ -19,6 +19,7 @@ public class FuelCostServiceTest {
 
     @Test
     public void shouldReturnLpgCostObject() {
+
         car.setLpgPowered(true);
         assertThat((fuelCostService.selectFuel(car).getClass().getName())).isEqualTo("io.github.plindzek.fuelcost.LpgCost");
     }

@@ -34,14 +34,12 @@ public class FuelCostControllerTest {
     @Test
     public void shouldReturnExpectedStatus() throws Exception {
         trip = new Trip();
-        trip.setKmOnLpg(10);
-        trip.setLpgPrice(2);
         String json = new ObjectMapper().writeValueAsString(trip);
 
-        when(fuelCostService.calcCost(anyInt(), any(Trip.class))).thenReturn(66.25);
+        when(fuelCostService.calcCost(anyInt(), any(Trip.class))).thenReturn(12.05);
 
         mockMvc
-                .perform(post("/api/fuelcost/{id}", 100)
+                .perform(post("/api/fuelcost/{id}", 43)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andDo(print())

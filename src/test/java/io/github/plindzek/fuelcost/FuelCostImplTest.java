@@ -3,10 +3,8 @@ package io.github.plindzek.fuelcost;
 import io.github.plindzek.car.Car;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
-
-public class FuelCostTest {
+public class FuelCostImplTest {
     FuelCost fuelCost;
 
     Car car = new Car();
@@ -42,4 +40,5 @@ public class FuelCostTest {
         trip.setKmOnPb(100.00);
         assertThat(fuelCost.calculateFuelCost(car, trip)).isEqualTo(20.00);
     }
-}
+
+  }

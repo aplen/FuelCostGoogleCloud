@@ -18,17 +18,15 @@ import java.util.List;
 class FuelsPriceController {
 
     private final Logger logger = LoggerFactory.getLogger(FuelsPriceController.class);
+    private FuelsPriceService fuelsPriceService;
 
-    private FuelsPriceService service;
-
-    FuelsPriceController(FuelsPriceService service) {
-        this.service = service;
+    FuelsPriceController(FuelsPriceService fuelsPriceService) {
+        this.fuelsPriceService = fuelsPriceService;
     }
 
     @GetMapping
     ResponseEntity<List<String>> getPrices() {
         logger.info("Request for prices got");
-
-        return ResponseEntity.ok(service.getPrices());
+        return ResponseEntity.ok(fuelsPriceService.getPrices());
     }
 }

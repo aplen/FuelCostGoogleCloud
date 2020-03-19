@@ -18,8 +18,8 @@ class FuelCostController {
 
     FuelCostController(FuelCostService fuelCostService) {
         this.fuelCostService = fuelCostService;
-
     }
+
 @PostMapping("/{id}")
     ResponseEntity<Double> getResult(@PathVariable Integer id, @RequestBody Trip trip){
 

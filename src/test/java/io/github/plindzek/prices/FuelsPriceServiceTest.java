@@ -1,12 +1,11 @@
 package io.github.plindzek.prices;
 
 import org.jsoup.nodes.Document;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,6 +39,7 @@ public class FuelsPriceServiceTest {
     }
 
     @Test
+    @DirtiesContext
     public void shouldReturnTrueIfEquals() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String dateOfDownload = dateFormat.format(Calendar.getInstance().getTime());
@@ -48,7 +47,7 @@ public class FuelsPriceServiceTest {
     }
 
     @Test
-    public void shouldContainFourPrices() {
+        public void shouldContainFourPrices() {
         Pattern pattern = Pattern.compile("\\d.\\d\\d.*\\d.\\d\\d.*\\d.\\d\\d.*\\d.\\d\\d");
 
         List<String> prices = fuelsPriceService.getPrices();

@@ -75,6 +75,7 @@ public class Lang {
 	this.loadProfileButton = loadProfileButton;
     }
 
+    void setLangId(Integer langId) {this.langId = langId;}
     public Integer getLangId() {
 	return langId;
     }

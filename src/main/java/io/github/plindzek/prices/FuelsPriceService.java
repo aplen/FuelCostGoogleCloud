@@ -17,7 +17,7 @@ class FuelsPriceService {
     private String dateOfDownload;
     private boolean freshDataGet = false;
     private List<String> prices = new ArrayList<>();
-    protected static final String AUTOCENTRUM_URL = "http://www.autocentrum.pl/paliwa/ceny-paliw/";
+    protected static final String AUTOCENTRUM_URL = "https://www.autocentrum.pl/paliwa/ceny-paliw/";
 
     List<String> getPrices() {
         checkDate(dateOfDownload);

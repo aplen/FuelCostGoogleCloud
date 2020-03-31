@@ -32,7 +32,7 @@ public class LangControllerTest {
     private LangService langService;
 
     @Test
-    public void shouldReturnExpectedStatus() throws Exception {
+    public void shouldReturnStatus200AndCorrectJson() throws Exception {
 
         Lang lang = new Lang();
         lang.setLangCode("1");

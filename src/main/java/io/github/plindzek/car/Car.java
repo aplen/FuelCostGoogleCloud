@@ -6,15 +6,15 @@ import org.hibernate.annotations.GenericGenerator;
 
 /**
  * @author Adam
- *
  */
 @Entity
 @Table(name = "cars")
 public class Car {
 
     @Id
-    @GeneratedValue(generator = "inc")
-    @GenericGenerator(name = "inc", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(generator = "inc")
+    //@GenericGenerator(name = "inc", strategy = "increment")
     private Integer id;
     private String name;
     @Column(name = "lpgpowered")
@@ -29,6 +29,20 @@ public class Car {
     private double lpgOn100Km;
     @Column(name = "pbon100km")
     private double pbOn100Km;
+
+    public Car() {
+    }
+
+    Car(Integer id, String name, boolean lpgPowered, boolean pbPowered, boolean onPowered, double lpgOn100Km, double pbOn100Km, double onOn100Km) {
+        this.id = id;
+        this.name = name;
+        this.lpgPowered = lpgPowered;
+        this.pbPowered = pbPowered;
+        this.onPowered = onPowered;
+        this.lpgOn100Km = lpgOn100Km;
+        this.pbOn100Km = pbOn100Km;
+        this.onOn100Km = onOn100Km;
+    }
 
     @Override
     public String toString() {

@@ -154,8 +154,14 @@
                         fetch(`${API_URL}/cars/${car.id}`, {
                                 method: 'DELETE'
                             })
-                            .then(processDelResponse)
-                            .then(label.remove())
+                            .then((response) => {
+                            if (response.ok) {
+                            label.remove();
+                            return response.ok;
+                            }
+                            alert(`HTTP status not OK  (${response.status})`);
+                            throw new Error(`Status not 200 (${response.status})`);
+                              })
                             .catch(console.warn);
                     }
                 });
@@ -256,15 +262,5 @@
                 alert(`HTTP status not 200  (${response.status})`);
                 document.forms[0].reset();
                 throw new Error(`Status not 200 (${response.status})`);
-
             }
-            function processDelResponse(response = {}) {
-                            if (response.ok) {
-                                return response.ok;
-                            }
-                            alert(`HTTP status not 200  (${response.status})`);
-                            document.forms[0].reset();
-                            throw new Error(`Status not 200 (${response.status})`);
-
-                        }
         })();

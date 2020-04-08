@@ -1,6 +1,5 @@
 package io.github.plindzek.fuelcost;
 
-import io.github.plindzek.car.CarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

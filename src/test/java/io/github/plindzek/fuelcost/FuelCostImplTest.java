@@ -2,6 +2,7 @@ package io.github.plindzek.fuelcost;
 
 import io.github.plindzek.car.Car;
 import org.junit.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FuelCostImplTest {

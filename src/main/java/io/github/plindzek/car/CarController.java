@@ -1,7 +1,5 @@
 package io.github.plindzek.car;
 
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
-import org.jsoup.Connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.*;
+import static org.springframework.http.ResponseEntity.notFound;
+import static org.springframework.http.ResponseEntity.ok;
 
 /**
  * @author Adam

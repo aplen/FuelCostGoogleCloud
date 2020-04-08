@@ -2,8 +2,6 @@ package io.github.plindzek.car;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * @author Adam
  */

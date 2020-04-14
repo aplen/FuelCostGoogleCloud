@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * return actual fuel prices
- * @author Adam
- */
 @RestController
 @RequestMapping("/api/prices")
 class FuelsPriceController {

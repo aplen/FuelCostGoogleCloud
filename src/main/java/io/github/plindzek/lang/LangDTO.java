@@ -5,7 +5,7 @@ class LangDTO {
     private String langCode;
 
 
-   LangDTO(Lang lang) {
+    LangDTO(Lang lang) {
         this.langCode = lang.getLangCode();
         this.langId = lang.getLangId();
     }

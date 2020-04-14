@@ -15,6 +15,9 @@ class LangService {
         this.repository = repository;
     }
 
+    /*
+     *returns langId and langCode from Lang
+     */
     List<LangDTO> findAll() {
         return repository
                 .findAll()

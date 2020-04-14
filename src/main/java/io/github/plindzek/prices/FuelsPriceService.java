@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * return actual fuel prices
+ * @author Adam
+ */
+
 @Service
 class FuelsPriceService {
     private final Logger LOGGER = LoggerFactory.getLogger(FuelsPriceService.class);

@@ -1,4 +1,4 @@
-package io.github.plindzek;
+package io.github.plindzek.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

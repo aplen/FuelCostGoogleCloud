@@ -1,4 +1,4 @@
-package io.github.plindzek;
+package io.github.plindzek.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 
-public class JwtFilter extends BasicAuthenticationFilter {
+class JwtFilter extends BasicAuthenticationFilter {
 
     public JwtFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);

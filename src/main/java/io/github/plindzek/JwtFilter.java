@@ -30,7 +30,7 @@ public class JwtFilter extends BasicAuthenticationFilter {
                 header contains username, role eg. ROLE_ADMIN or ADMIN and others parameters (session length)
                 encrypted with our password
                 */
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJyb2xlIjoUk9MRV9BRE1JTiJ9.TUVNSdER2DutYHcLjVR9CUhHMNqzD3f64LDfPxM1oH4";
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.TUVNSdER2DutYHcLjVR9CUhHMNqzD3f64LDfPxM1oH4";
 
         UsernamePasswordAuthenticationToken authResult = getAuthenticationByToken(header);
         SecurityContextHolder.getContext().setAuthentication(authResult);

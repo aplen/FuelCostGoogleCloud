@@ -26,7 +26,8 @@ class JwtFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         String header = //request.getHeader("Authorization");
-                /*hardcoded header - we should receive this from facebook or other app to login
+                /*
+                hardcoded header with ADMIN role- we should receive this from facebook or other app to login
                 header contains username, role eg. ROLE_ADMIN or ADMIN and others parameters (session length)
                 encrypted with our password
                 */

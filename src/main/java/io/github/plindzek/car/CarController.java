@@ -2,6 +2,7 @@ package io.github.plindzek.car;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,11 +46,11 @@ class CarController {
     @PostMapping
     ResponseEntity<Car> saveCar(@RequestBody Car car) {
         logger.info("Request for add car got");
-        return ok(repository.save(car));
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(car));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Car> deleteCar(@PathVariable Integer id) {
+    ResponseEntity<String> deleteCar(@PathVariable Integer id) {
         logger.info("Request for delete car got");
         var car = repository.findById(id);
         ResponseEntity responseEntity;

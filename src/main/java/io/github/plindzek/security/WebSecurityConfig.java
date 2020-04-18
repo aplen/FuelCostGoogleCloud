@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ @author Adam
+ set access restriction to endpoints
+ */
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

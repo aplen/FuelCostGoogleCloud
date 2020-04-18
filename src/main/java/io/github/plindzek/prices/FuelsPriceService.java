@@ -13,8 +13,11 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * return actual fuel prices
- * @author Adam
+ check date and return actual fuel prices
+ by scraping it from www.autocentrum.pl if today was not received before
+ if any error occurs it keeps previous scrapped data (if prices exist)
+ also check current date for avoid unnecessary duplication of scraping (if prices exist)
+ @author Adam
  */
 
 @Service

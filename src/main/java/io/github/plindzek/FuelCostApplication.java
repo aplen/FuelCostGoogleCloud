@@ -14,6 +14,7 @@ public class FuelCostApplication {
 		SpringApplication.run(FuelCostApplication.class, args);
 
 	}
+	/*needed for working h2 console*/
 	@Bean
 	ServletRegistrationBean h2servletRegistration(){
 		ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());

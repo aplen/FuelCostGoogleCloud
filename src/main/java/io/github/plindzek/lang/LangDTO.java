@@ -1,5 +1,10 @@
 package io.github.plindzek.lang;
 
+/*
+@author Adam
+DTO class created because we dont need send all data from Langs entity
+when GET request is execute
+ */
 class LangDTO {
     private Integer langId;
     private String langCode;

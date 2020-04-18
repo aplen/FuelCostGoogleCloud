@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Adam
+ *  CRUD operations on users in database
+ */
 @Service
 class UserService implements UserDetailsService {
 

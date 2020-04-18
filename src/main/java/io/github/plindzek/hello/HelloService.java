@@ -5,7 +5,11 @@ import io.github.plindzek.lang.LangRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+/*
+*@author Adam
+* returns greeting of user after he choose language, name
+* or leave empty fields and click submit button
+*/
 @Service
 class HelloService {
 

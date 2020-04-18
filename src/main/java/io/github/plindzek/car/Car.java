@@ -10,12 +10,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cars")
-public @Data class Car {
+public @Data
+class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@GeneratedValue(generator = "inc")
-    //@GenericGenerator(name = "inc", strategy = "increment")
     private Integer id;
     private String name;
     @Column(name = "lpgpowered")
@@ -43,11 +42,6 @@ public @Data class Car {
         this.lpgOn100Km = lpgOn100Km;
         this.pbOn100Km = pbOn100Km;
         this.onOn100Km = onOn100Km;
-    }
-
-    @Override
-    public String toString() {
-        return "Car [" + name + "]";
     }
 
 }

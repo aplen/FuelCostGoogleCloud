@@ -3,6 +3,12 @@ package io.github.plindzek.car;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+/**
+ * @author Adam
+ * Car Service with example of automatic
+ * fill database at app startup
+ * other Car objects are created with migrations, managed by Flyway
+ */
 
 @Service
 class CarService {

@@ -2,6 +2,10 @@ package io.github.plindzek.fuelcost;
 
 import lombok.*;
 
+/**
+ * @author Adam
+ * Temporary Trip object created to collect data of fuel prices and trip length
+ */
 @Data
 class Trip {
 
@@ -11,5 +15,4 @@ class Trip {
     private double lpgPrice;
     private double pbPrice;
     private double onPrice;
-
 }

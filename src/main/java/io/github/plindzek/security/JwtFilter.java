@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 
+/**
+ * @author Adam
+ *  filter that get token from other site and authenticate user
+ */
 class JwtFilter extends BasicAuthenticationFilter {
 
     public JwtFilter(AuthenticationManager authenticationManager) {

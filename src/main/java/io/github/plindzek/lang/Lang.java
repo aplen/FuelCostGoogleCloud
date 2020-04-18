@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 /**
  * @author Adam
- * model/encja bazodanowa
+ *  Lang model/database entity
  */
 @Data
 @Entity
@@ -91,6 +91,4 @@ public class Lang {
 	this.saveProfileButton = saveProfileButton;
 	this.loadProfileButton = loadProfileButton;
     }
-
-
 }

@@ -3,6 +3,11 @@ package io.github.plindzek.security;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @author Adam
+ *  create users and save to database at application startup
+ *  with encoded passwords
+ */
 @Configuration
 class Start {
 

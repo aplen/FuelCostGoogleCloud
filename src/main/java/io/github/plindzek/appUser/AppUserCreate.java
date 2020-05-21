@@ -1,4 +1,4 @@
-package io.github.plindzek.security;
+package io.github.plindzek.appUser;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,22 +9,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *  with encoded passwords
  */
 @Configuration
-class Start {
+class AppUserCreate {
 
-private UserRepository userRepository;
+private AppUserRepository appUserRepository;
 
-    Start(UserRepository userRepository, PasswordEncoder encoder) {
-        this.userRepository = userRepository;
+    AppUserCreate(AppUserRepository appUserRepository, PasswordEncoder encoder) {
+        this.appUserRepository = appUserRepository;
+
         AppUser appAdmin = new AppUser();
+        appAdmin.setLangId(1);
         appAdmin.setUsername("admin");
-        appAdmin.setPassword(encoder.encode("1234"));
+        appAdmin.setPassword(encoder.encode("admin"));
         appAdmin.setRole("ROLE_ADMIN");
-        userRepository.save(appAdmin);
 
         AppUser appUser = new AppUser();
         appUser.setUsername("user");
-        appUser.setPassword(encoder.encode("1234"));
+        appUser.setLangId(1);
+        appUser.setPassword(encoder.encode("user"));
         appUser.setRole("ROLE_USER");
-        userRepository.save(appUser);
+
+        appUserRepository.save(appAdmin);
+        appUserRepository.save(appUser);
+
     }
+
 }

@@ -15,7 +15,8 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -49,5 +50,35 @@ public class LangControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("[0].langCode", containsString("1")))
                 .andExpect(jsonPath("[0].langId", is(12)));
+    }
+
+    @Test
+    public void shouldReturnExpectedText() throws Exception {
+        //service mocking
+        when(langService.prepareLogin(null)).thenReturn("Siema" + "<br />" + "kitty" + "!");
+
+        mockMvc
+                .perform(get("/api"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Siema" + "<br />" + "kitty" + "!")));
+    }
+
+    @Test
+    public void shouldReturnExpectedTextWithParameters() throws Exception {
+
+        when(langService.prepareLogin(1)).thenReturn("Siema<br />Adam!");
+
+        mockMvc
+                .perform(get("/api")
+                        .param("lang", "1")
+                        .param("name", "Adam"))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andExpect(content().string(containsString("Siema<br />Adam!")));
+//checks whether the mock has been called the specified number of times
+        verify(langService, times(1)).prepareLogin(anyInt());
+
     }
 }

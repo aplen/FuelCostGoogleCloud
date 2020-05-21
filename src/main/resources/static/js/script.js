@@ -1,143 +1,121 @@
-    (function() {
-  //          const API_URL = 'https://wise-mantra-270807.appspot.com/api';
-            const API_URL = 'http://localhost:8080/api';
-            const fuelsList = document.getElementById('fuelsList');
-            const carName = document.getElementById('carName');
-            const pbOn100Km = document.getElementById('pbOn100Km');
-            const lpgOn100Km = document.getElementById('lpgOn100Km');
-            const onOn100Km = document.getElementById('onOn100Km');
+    (function main() {
+        //          const API_URL = 'https://wise-mantra-270807.appspot.com/api';
+        const API_URL = 'http://localhost:8080/api';
+        const fuelsList = document.getElementById('fuelsList');
+        var userAuthenticated = "";
+        showDate();
+        const carName = document.getElementById('carName');
+        const pbOn100Km = document.getElementById('pbOn100Km');
+        const lpgOn100Km = document.getElementById('lpgOn100Km');
+        const onOn100Km = document.getElementById('onOn100Km');
 
-            const kmOnPb = document.getElementById('kmOnPb');
-            const kmOnLpg = document.getElementById('kmOnLpg');
-            const kmOnOn = document.getElementById('kmOnOn');
-            const pbPrice = document.getElementById('pbPrice');
-            const lpgPrice = document.getElementById('lpgPrice');
-            const onPrice = document.getElementById('onPrice');
+        const kmOnPb = document.getElementById('kmOnPb');
+        const kmOnLpg = document.getElementById('kmOnLpg');
+        const kmOnOn = document.getElementById('kmOnOn');
+        const pbPrice = document.getElementById('pbPrice');
+        const lpgPrice = document.getElementById('lpgPrice');
+        const onPrice = document.getElementById('onPrice');
+        var confirmTxt = "Are you sure to delete select position? ";
 
-            var confirmTxt = "Are you sure to delete select position? ";
-
-            initWelcomeForm();
-
-            function initWelcomeForm() {
-                const CODE_TO_EMOJI = {
-                    'pl': '🇵🇱',
-                    'en': '🇺🇸',
-                    'de': '🇩🇪'
-                };
-                fetch(`${API_URL}/langs`)
-                    .then(processOkResponse)
-                    .then(langArr => {
-                        document.getElementById('langs').innerHTML = langArr.map(lang => `
-              <label class="pure-radio">
-                <input type="radio" name="lang" value="${lang.langId}">
-                ${CODE_TO_EMOJI[lang.langCode]}
-              </label>
-          `).join('\n');
-                        initWelcomeFormClick();
-                    });
-            }
-
-            function initWelcomeFormClick() {
-                const welcomeForm = document.getElementById('welcomeForm');
-
-                document.getElementById('btn').addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const formObj = {
-                        name: welcomeForm.elements.name.value,
-                        lang: welcomeForm.elements.lang.value
-                    };
-                    fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
-                        .then(response => response.text())
-                        .then((text) => {
-                            document.getElementById('welcome').innerHTML = `
-                <h2>${text}</br></br>Enter car data or choose from list:</h2>`;
-                            welcomeForm.remove();
-                            document.getElementById('carForm').style.display = 'block';
-                            document.getElementById('allCarsForm').style.display = 'initial';
-                        });
-                });
-            }
-
-            fuelsList.addEventListener("change", fuelFieldsDisable);
-            fuelFieldsDisable();
-
-            function fuelFieldsDisable() {
-                var fuelChosen = fuelsList.value;
-                if (fuelChosen == '') {
-                    lpgOn100Km.disabled = true;
-                    lpgOn100Km.value = '';
-                    onOn100Km.disabled = true;
-                    onOn100Km.value = "";
-                    pbOn100Km.disabled = true;
-                    pbOn100Km.value = "";
-                } else if (fuelChosen == "ON") {
-                    lpgOn100Km.disabled = true;
-                    lpgOn100Km.value = '';
-                    onOn100Km.disabled = false;
-                    pbOn100Km.disabled = true;
-                    pbOn100Km.value = '';
-
-                } else if (fuelChosen == "PB") {
-                    lpgOn100Km.disabled = true;
-                    lpgOn100Km.value = '';
-                    onOn100Km.disabled = true;
-                    onOn100Km.value = '';
-                    pbOn100Km.disabled = false;
-                } else if (fuelChosen == "LPG/PB") {
-                    lpgOn100Km.disabled = false;
-                    onOn100Km.disabled = true;
-                    onOn100Km.value = '';
-                    pbOn100Km.disabled = false;
-                }
-            };
-
-            function enableKmAndPriceFields(car) {
-                if (car.lpgPowered) {
-                    kmOnLpg.removeAttribute("disabled");
-                    lpgPrice.removeAttribute("disabled");
-                    kmOnPb.removeAttribute("disabled");
-                    pbPrice.removeAttribute("disabled");
-                } else if (car.pbPowered) {
-                    kmOnPb.removeAttribute("disabled");
-                    pbPrice.removeAttribute("disabled");
-                } else if (car.onPowered) {
-                    kmOnOn.removeAttribute("disabled");
-                    onPrice.removeAttribute("disabled")
-                } else {
-                    document.getElementById('welcome').innerHTML = `<h2>choosen car has no type of fuel set</h2>`;
-                }
-            }
-
-            fetch(`${API_URL}/cars`)
-                .then(processOkResponse)
-                .then(cars => cars.forEach(createNewCar));
-
-            document.getElementById('addCar').addEventListener('click', (event) => {
-                event.preventDefault();
-                fetch(`${API_URL}/cars`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: carName.value,
-                            lpgPowered: !lpgOn100Km.disabled,
-                            pbPowered: !pbOn100Km.disabled,
-                            onPowered: !onOn100Km.disabled,
-                            onOn100Km: onOn100Km.value,
-                            lpgOn100Km: lpgOn100Km.value,
-                            pbOn100Km: pbOn100Km.value
-                        })
-                    })
-                    .then(processOkResponse)
-                    .then(createNewCar)
-                    .then(fuelFieldsDisable)
-                    .catch(console.warn);
+        //        //TODO langvalue pobrac i username pobrać = logged user get
+        //        fetch(`${API_URL}?${welcomeForm.elements.lang.value}`)
+        //                    .then(response => response.text())
+        //                    .then((text) => {
+        //                        document.getElementById('welcome').innerHTML = `
+        //                <h2>${text}</br></br>Enter car data or choose from list:</h2>`;
+        //                    });
+        fetch(`${"http://localhost:8080"}/users/loggedUser`)
+            .then(processOkUser)
+            .then(resp => resp.text())
+            .then(resp => {
+                document.getElementById('loggedUser').innerHTML = `Current user: ${resp}`;
+                userAuthenticated = resp;
             });
 
-            function createNewCar(car) {
 
+        fetch(`${API_URL}/cars`)
+            .then(processOkResponse)
+            .then(cars => cars.forEach(displayCar));
+
+        fuelsList.addEventListener("change", fuelFieldsDisable);
+        fuelFieldsDisable();
+
+        function fuelFieldsDisable() {
+            var fuelChosen = fuelsList.value;
+            if (fuelChosen == '') {
+                lpgOn100Km.disabled = true;
+                lpgOn100Km.value = '';
+                onOn100Km.disabled = true;
+                onOn100Km.value = "";
+                pbOn100Km.disabled = true;
+                pbOn100Km.value = "";
+            } else if (fuelChosen == "ON") {
+                lpgOn100Km.disabled = true;
+                lpgOn100Km.value = '';
+                onOn100Km.disabled = false;
+                pbOn100Km.disabled = true;
+                pbOn100Km.value = '';
+
+            } else if (fuelChosen == "PB") {
+                lpgOn100Km.disabled = true;
+                lpgOn100Km.value = '';
+                onOn100Km.disabled = true;
+                onOn100Km.value = '';
+                pbOn100Km.disabled = false;
+            } else if (fuelChosen == "LPG/PB") {
+                lpgOn100Km.disabled = false;
+                onOn100Km.disabled = true;
+                onOn100Km.value = '';
+                pbOn100Km.disabled = false;
+            }
+        };
+
+        function enableKmAndPriceFields(car) {
+            if (car.lpgPowered) {
+                kmOnLpg.removeAttribute("disabled");
+                lpgPrice.removeAttribute("disabled");
+                kmOnPb.removeAttribute("disabled");
+                pbPrice.removeAttribute("disabled");
+            } else if (car.pbPowered) {
+                kmOnPb.removeAttribute("disabled");
+                pbPrice.removeAttribute("disabled");
+            } else if (car.onPowered) {
+                kmOnOn.removeAttribute("disabled");
+                onPrice.removeAttribute("disabled")
+            } else {
+                document.getElementById('welcome').innerHTML = `<h2>choosen car has no type of fuel set</h2>`;
+            }
+        }
+
+
+
+        document.getElementById('addCar').addEventListener('click', (event) => {
+            event.preventDefault();
+            fetch(`${API_URL}/cars`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: carName.value,
+                        username: userAuthenticated,
+                        lpgPowered: !lpgOn100Km.disabled,
+                        pbPowered: !pbOn100Km.disabled,
+                        onPowered: !onOn100Km.disabled,
+                        onOn100Km: onOn100Km.value,
+                        lpgOn100Km: lpgOn100Km.value,
+                        pbOn100Km: pbOn100Km.value
+                    })
+                })
+                .then(processOkResponse)
+                .then(displayCar)
+                .then(fuelFieldsDisable)
+                .catch(console.warn);
+        });
+
+        function displayCar(car) {
+            if (car.username==userAuthenticated||car.username=="default user") {
                 const label = document.createElement('label');
                 label.classList.add('pure-checkbox');
 
@@ -155,13 +133,13 @@
                                 method: 'DELETE'
                             })
                             .then((response) => {
-                            if (response.ok) {
-                            label.remove();
-                            return response.ok;
-                            }
-                            alert(`HTTP status not OK  (${response.status})`);
-                            throw new Error(`Status not 200 (${response.status})`);
-                              })
+                                if (response.ok) {
+                                    label.remove();
+                                    return response.ok;
+                                }
+                                alert(`HTTP status not OK  (${response.status})`);
+                                throw new Error(`Status not 200 (${response.status})`);
+                            })
                             .catch(console.warn);
                     }
                 });
@@ -193,74 +171,87 @@
 
 
             }
+        }
 
-            document.getElementById('clearButton').addEventListener('click', (event) => {
+        document.getElementById('clearButton').addEventListener('click', (event) => {
+            event.preventDefault();
+            document.forms[0].reset();
+        });
+
+        function sendData(car) {
+
+            document.getElementById('calculateButton').addEventListener('click', (event) => {
                 event.preventDefault();
-                document.forms[0].reset();
-            });
 
-            function sendData(car) {
+                const finishForm = document.getElementById('inputLast');
+                const tripDataObj = {};
 
-                document.getElementById('calculateButton').addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    const finishForm = document.getElementById('inputLast');
-                    const tripDataObj = {};
-
-                    fetch(`${API_URL}/fuelcost/${car.id}`, {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                kmOnLpg: finishForm.elements.kmOnLpg.value,
-                                kmOnPb: finishForm.elements.kmOnPb.value,
-                                kmOnOn: finishForm.elements.kmOnOn.value,
-                                lpgPrice: finishForm.elements.lpgPrice.value,
-                                pbPrice: finishForm.elements.pbPrice.value,
-                                onPrice: finishForm.elements.onPrice.value,
-                            })
+                fetch(`${API_URL}/fuelcost/${car.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            kmOnLpg: finishForm.elements.kmOnLpg.value,
+                            kmOnPb: finishForm.elements.kmOnPb.value,
+                            kmOnOn: finishForm.elements.kmOnOn.value,
+                            lpgPrice: finishForm.elements.lpgPrice.value,
+                            pbPrice: finishForm.elements.pbPrice.value,
+                            onPrice: finishForm.elements.onPrice.value,
                         })
-                        .then(processOkResponse)
-                        .then((text) => {
-                            document.getElementById('result').innerHTML = `
+                    })
+                    .then(processOkResponse)
+                    .then((text) => {
+                        document.getElementById('result').innerHTML = `
                     <h2>The cost of trip is ${text}PLN!</h2>`;
-                        })
+                    })
 
-                    .catch(console.warn);
-                });
+                .catch(console.warn);
+            });
+        }
+
+
+
+        getActualPrices();
+
+        function getActualPrices() {
+            document.getElementById('showPrices').addEventListener('click', (event) => {
+                event.preventDefault();
+                fetch(`${API_URL}/prices`)
+                    .then(processOkResponse)
+                    .then(price => {
+                        document.getElementById('addPrices').innerHTML = price;
+                    })
+            });
+        }
+
+        function showDate() {
+            const now = new Date();
+            const currentYear = now.getFullYear().toString();
+            const currentMonth = (now.getMonth() + 1).toString();
+            const currentDay = now.getDate().toString();
+            const formattedDate = `${currentDay.toString().padStart(2, '0')}-${currentMonth.padStart(2, '0')}-${currentYear.padStart(2, '0')}`;
+            document.getElementById('addDate').innerHTML = "today: " + formattedDate + "; ";
+            document.getElementById('footerDate').innerHTML = "© " + currentYear + " FuelCost, Inc.";
+        }
+
+        function processOkResponse(response = {}) {
+            if (response.ok) {
+                return response.json();
             }
+            alert(`HTTP status not 200  (${response.status})`);
+            document.forms[0].reset();
+            throw new Error(`Status not 200 (${response.status})`);
+        }
 
-            getActualPrices();
-
-            function getActualPrices() {
-                document.getElementById('showPrices').addEventListener('click', (event) => {
-                    event.preventDefault();
-                    fetch(`${API_URL}/prices`)
-                        .then(processOkResponse)
-                        .then(price => {
-                            showDate();
-                            document.getElementById('addPrices').innerHTML = price;
-                        })
-                });
+        function processOkUser(response = {}) {
+            if (response.ok) {
+                return response;
             }
-
-            function showDate() {
-                const now = new Date();
-                const currentYear = now.getFullYear().toString();
-                const currentMonth = (now.getMonth() + 1).toString();
-                const currentDay = now.getDate().toString();
-                const formattedDate = `${currentDay.toString().padStart(2, '0')}-${currentMonth.padStart(2, '0')}-${currentYear.padStart(2, '0')}`;
-                document.getElementById('addDate').innerHTML = "Date: " + formattedDate + "; ";
-            }
-
-            function processOkResponse(response = {}) {
-                if (response.ok) {
-                    return response.json();
-                }
-                alert(`HTTP status not 200  (${response.status})`);
-                document.forms[0].reset();
-                throw new Error(`Status not 200 (${response.status})`);
-            }
-        })();
+            alert(`HTTP status not 200  (${response.status})`);
+            document.forms[0].reset();
+            document.getElementById('loggedUser').innerHTML = `show user Error`;
+            throw new Error(`Status not 200 (${response.status})`);
+        }
+    })();

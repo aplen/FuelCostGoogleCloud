@@ -1,6 +1,6 @@
 package io.github.plindzek.fuelcost;
 
-import lombok.*;
+import lombok.Data;
 
 /**
  * @author Adam

@@ -3,27 +3,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
     <title>Fuel cost application</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="fuel cost, trip cost" />
+    <meta name="description" content="Calculate fuel cost of the trip" />
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
-
+    <style>
+        body{
+        background-image: url('images/1.jpg');
+        background-repeat: inherit;
+        background-position: center;
+        }
+    </style>
 </head>
+<body>
 
-<body style="background-image: url('images/1.jpg'); background-repeat: inherit; background-position: center;">
     <main style=" margin: auto">
+
         <div id="welcome" style="text-align: center">
-            <h2>Introduce yourself</h2>
+            <h2>Welcome</h2>
+            <label id="loggedUser">no user</label>
         </div>
-        <form id="welcomeForm" class="pure-form pure-g pure-form-aligned" style='width: 40%; margin: auto;'>
-            <input class="pure-input-rounded pure-u-1" name="name" placeholder="Enter Your name" autocomplete="off">
-            <fieldset id="langs" class="pure-u-1 pure-control-group">Loading...</fieldset>
-            <button id="btn" class="pure-button pure-button-primary pure-u-1">Submit</button>
-        </form>
 
-
-        <div id="twoColumns" class="pure-g" style="width: initial; text-align: center;">
+               <div id="twoColumns" class="pure-g" style="width: initial; text-align: center;">
             <div class="pure-u-1-2">
-                <form id="carForm" class="pure-form" style="display: none; text-align: center">
+                <form id="carForm" class="pure-form" style="text-align: center">
                     <input id="carName" class="pure-input-rounded pure-input-2-3" placeholder="car name" autocomplete="off">
                     <div class="pure-input-rounded">
                         <label id="selectFuel">select fuel </label>
@@ -38,14 +42,14 @@
                     <input id="pbOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="PB consumption l/100km" disabled autocomplete="off">
                     <input id="lpgOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="LPG consumption l/100km" disabled autocomplete="off">
                     <input id="onOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="ON consumption l/100km" disabled autocomplete="off">
-                    </br>
-                    </br>
+                    <br />
+                    <br />
                     <button id="addCar" class="pure-button pure-button-primary">save car</button>
                     </fieldset>
                 </form>
             </div>
             <div class="pure-u-1-2">
-                <form id="allCarsForm" class="pure-form" style="display: none;">
+                <form id="allCarsForm" class="pure-form" >
                     <fieldset id="allCars" style="text-align: left;">
                         <label id="carListTitle" style="text-align: left;">
                                 <h3>Saved cars list:</h3>
@@ -63,9 +67,10 @@
                     <label id='addDate'></label>
                 <label id='addPrices'></label>
                 </label>
-                </br>
-                </br>
+                <br />
+                <br />
                 <button id="showPrices" class="pure-button pure-button-primary">show prices</button>
+                <hr />
 
 
             </fieldset>
@@ -74,7 +79,8 @@
                     <h3>Choosen car:</h3>
                 </label>
                 <div id="chosenCar" style="height:40px; text-align:center; border-style:solid;"></div>
-                </br>
+                <br />
+                <hr />
                 <label id='fillYourneyAndPriceTitle'> Fill fields with yourney length and fuel price: </label>
                 <input id="kmOnPb" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on PB" disabled autocomplete="off">
                 <input id="kmOnLpg" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on LPG" disabled autocomplete="off">
@@ -82,7 +88,8 @@
                 <input id="pbPrice" class="pure-input-rounded pure-input-2-3" placeholder="PB price" disabled autocomplete="off">
                 <input id="lpgPrice" class="pure-input-rounded pure-input-2-3" placeholder="LPG price" disabled autocomplete="off">
                 <input id="onPrice" class="pure-input-rounded pure-input-2-3" placeholder="ON price" disabled autocomplete="off">
-                </br>
+                <br />
+                <br />
                 <button id="clearButton" class="pure-button pure-button-primary">clear fields</button>
                 <button id="calculateButton" class="pure-button pure-button-primary">calculate fuel cost</button>
                 <label id="result">
@@ -90,8 +97,15 @@
                 </label>
             </fieldset>
         </form>
+        <footer id="footer" style='margin-left:auto; margin-right:auto;margin-bottom: 0px; margin-top: 10%; width: 20%'>
+            <button id="adminbtn" class="pure-button pure-button-primary pure-u-1">admin panel</button>
+            <p><a href="/index.html" class="pure-button pure-button-primary pure-u-1">Back to home page</a></p>
+            <p><a href="/logout" class="pure-button pure-button-primary pure-u-1">logout</a></p>
+            <label id="footerDate" style='margin-top:20px; width: 40%;'></label>
+        </footer>
     </main>
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="application/javascript" src="/js/script.js"></script>
+
 </body>
 
 </html>

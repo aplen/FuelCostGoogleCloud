@@ -17,6 +17,7 @@ class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private String username;
     @Column(name = "lpgpowered")
     private boolean lpgPowered;
     @Column(name = "pbpowered")
@@ -33,9 +34,10 @@ class Car {
     public Car() {
     }
 
-    Car(Integer id, String name, boolean lpgPowered, boolean pbPowered, boolean onPowered, double lpgOn100Km, double pbOn100Km, double onOn100Km) {
+    Car(Integer id, String name, String username, boolean lpgPowered, boolean pbPowered, boolean onPowered, double lpgOn100Km, double pbOn100Km, double onOn100Km) {
         this.id = id;
         this.name = name;
+        this.username = username;
         this.lpgPowered = lpgPowered;
         this.pbPowered = pbPowered;
         this.onPowered = onPowered;

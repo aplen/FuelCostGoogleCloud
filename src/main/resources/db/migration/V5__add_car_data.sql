@@ -1,3 +1,3 @@
-insert into cars (name, onPowered, lpgPowered, pbPowered, onOn100km, lpgOn100Km, pbOn100Km) values ('Opel Astra LPG', 0, 1, 1, 0, 10.5, 8.00);
-insert into cars (name, onPowered, lpgPowered, pbPowered, onOn100km, lpgOn100Km, pbOn100Km) values ('Beemka diesel', 1, 0, 0, 6.4, 0.00, 0.00);
-insert into cars (name, onPowered, lpgPowered, pbPowered, onOn100km, lpgOn100Km, pbOn100Km) values ('Seicento benzyna', 0, 0, 1, 0.00, 0.00, 6.00);
+insert into cars (name, username, onPowered, lpgPowered, pbPowered, onOn100km, lpgOn100Km, pbOn100Km) values ('Opel Astra LPG', 'default user', 0, 1, 1, 0, 10.5, 8.00);
+insert into cars (name, username, onPowered, lpgPowered, pbPowered, onOn100km, lpgOn100Km, pbOn100Km) values ('Beemka diesel', 'default user', 1, 0, 0, 6.4, 0.00, 0.00);
+insert into cars (name, username, onPowered, lpgPowered, pbPowered, onOn100km, lpgOn100Km, pbOn100Km) values ('Seicento benzyna', 'default user', 0, 0, 1, 0.00, 0.00, 6.00);

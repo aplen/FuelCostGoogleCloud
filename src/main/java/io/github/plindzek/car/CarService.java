@@ -21,6 +21,6 @@ class CarService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDB(){
-carRepository.save(new Car(4,"Mitsubishi", true, true, false, 0,20,10 ));
+carRepository.save(new Car(4,"Mitsubishi","default user" ,true, true, false, 0,20,10 ));
     }
 }

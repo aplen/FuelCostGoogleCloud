@@ -3,7 +3,9 @@
  */
 package io.github.plindzek.lang;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

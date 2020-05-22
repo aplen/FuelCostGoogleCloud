@@ -5,15 +5,33 @@
         var username;
 
         showDate();
-        initWelcomeFormClick();
+        initWelcomeForm();
 
+        function initWelcomeForm() {
+            const CODE_TO_EMOJI = {
+                'pl': '🇵🇱',
+                'en': '🇺🇸',
+                'de': '🇩🇪'
+            };
+            fetch(`${API_URL}/langs`)
+                .then(processOkResponse)
+                .then(langArr => {
+                    document.getElementById('langs').innerHTML = langArr.map(lang => `
+              <label class="pure-radio">
+                <input type="radio" name="lang" value="${lang.langId}">
+                ${CODE_TO_EMOJI[lang.langCode]}
+              </label>
+          `).join('\n');
+                    initWelcomeFormClick();
+                });
+        }
 
         function initWelcomeFormClick() {
-            const welcomeForm = document.getElementById('welcomeForm');
+            const welcomeForm = document.getElementById('registerForm');
 
-            document.getElementById('logbtn').addEventListener('click', (event) => {
+            document.getElementById('adduserbtn').addEventListener('click', (event) => {
 
-                fetch(`${URL}/users/login`, {
+                fetch(`${URL}/users/register`, {
                     method: 'POST',
                     headers: {
                         'Accept': 'text/html',
@@ -21,15 +39,17 @@
                     },
                     body: JSON.stringify({
                         username: welcomeForm.elements.username.value,
-                        password: welcomeForm.elements.password.value
+                        password: welcomeForm.elements.password.value,
+                        langId: welcomeForm.elements.lang.value
                     })
                 })
 .then(response =>response.text())
             .then(response => {
-                if(response==="User logged"){
+                if(response==="user created, please login"){
+                    alert(`${response}`);
                     window.location = `${URL}/index.html`;
                     } else {
-                document.getElementById('loginResp').innerHTML = `${response}`;
+                document.getElementById('registerResp').innerHTML = `${response}`;
     }
             });
 

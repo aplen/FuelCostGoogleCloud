@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -30,50 +28,64 @@ class AppUserController {
     public AppUserController(AppUserService appUserService) {
         this.appUserService = appUserService;
     }
+
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
+    @PostMapping("/register")
+    public String register(@RequestBody AppUser appUser) {
+
+        String response;
+
+        if (appUser.getUsername().equals("") || appUser.getPassword().equals("")) {
+            response = "no empty login/password allowed";
+
+        } else {
+            try {
+                var appUserFromDb = appUserService.findByName(appUser.getUsername());
+                response = "User exist";
+
+            } catch (UsernameNotFoundException e) {
+                appUser.setRole("ROLE_USER");
+                appUser.setPassword(getPasswordEncoder().encode(appUser.getPassword()));
+                appUserService.save(appUser);
+                response = "user created, please login";
+            }
+        }
+        return response;
+    }
 
     @PostMapping("/login")
-    public void login(@RequestBody AppUser appUserToSave) throws UnsupportedEncodingException {
-        AppUser authenticatedAppUser;
+    public ResponseEntity<String> login(@RequestBody AppUser appUserToLogin) {
 
-        //sprawdzamy po nazwie, czy istnieje w bazie
-        try {
-            var appUserFromDb = appUserService.findByName(appUserToSave.getUsername());
-            //jeżeli istnieje to sprawdzamy, czy hasła są zgodne
-            if (getPasswordEncoder().matches(appUserToSave.getPassword(), appUserFromDb.getPassword())) {
-                //logger.info("hasło OK");
-                //jeżeli hasła są zgodne pobieramy istniejącego użytkownika
-                authenticatedAppUser = appUserFromDb;
-            } else {
-                authenticatedAppUser = appUserService.findByName("user");
-                //jeżeli hasła nie są zgodne, zostaje zalogowany domyslny użytkownik
-                //TODO exception - zamiast default user powinien być userdontexistexception oraz brak
-                //logger.info("Błędne hasło");
+        ResponseEntity response;
+
+        if (appUserToLogin.getUsername().equals("") || appUserToLogin.getPassword().equals("")) {
+            response = ResponseEntity.ok("no empty login/password allowed");
+
+        } else {
+            try {
+                var appUserFromDb = appUserService.findByName(appUserToLogin.getUsername());
+
+                if (getPasswordEncoder().matches(appUserToLogin.getPassword(), appUserFromDb.getPassword())) {
+
+                    Set<SimpleGrantedAuthority> simpleGrantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(appUserFromDb.getRole()));
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(appUserFromDb.getUsername(), null, simpleGrantedAuthorities);
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    response = ResponseEntity.ok("User logged");
+
+                } else {
+                    response = ResponseEntity.ok("Wrong password");
+                }
+            } catch (UsernameNotFoundException e) {
+
+                return ResponseEntity.ok("User not found");
             }
-
-        } catch (UsernameNotFoundException e) {
-            //jeżeli nie istnieje to dodajemy nowego
-            //TODO zapytać się użytkownika, czy dodać go do bazy
-            //dodajemy role, jaka chcemy by pełnił nowy user
-            appUserToSave.setRole("ROLE_USER");
-            //zabezpieczamy hasło
-            appUserToSave.setPassword(getPasswordEncoder().encode(appUserToSave.getPassword()));
-            //zapis do bazy
-            authenticatedAppUser = appUserToSave;
-            appUserService.save(authenticatedAppUser);
         }
-        String userName = authenticatedAppUser.getUsername();
-        Set<SimpleGrantedAuthority> simpleGrantedAuthorities = Collections.singleton(new SimpleGrantedAuthority(authenticatedAppUser.getRole()));
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName, null, simpleGrantedAuthorities);
-
-
-        UsernamePasswordAuthenticationToken authResult = authenticationToken;
-        SecurityContextHolder.getContext().setAuthentication(authResult);
+        return response;
     }
 
     @GetMapping("/{name}")
@@ -83,13 +95,12 @@ class AppUserController {
 
     @GetMapping("/loggedUser")
     String loggedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
         String username;
 
-        if(authentication.getClass().equals(OAuth2AuthenticationToken.class)){
+        if (authentication.getClass().equals(OAuth2AuthenticationToken.class)) {
             username = (((OAuth2AuthenticationToken) authentication).getPrincipal().getAttributes()).get("login").toString();
-        }else
-            {
+        } else {
             username = authentication.getName();
         }
         return username;
@@ -118,7 +129,6 @@ class AppUserController {
         }
         return responseEntity;
     }
-
 
 
 }

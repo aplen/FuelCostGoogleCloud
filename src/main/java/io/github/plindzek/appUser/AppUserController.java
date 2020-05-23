@@ -119,10 +119,10 @@ class AppUserController {
 
     @DeleteMapping("/{name}")
     ResponseEntity<String> deleteUser(@PathVariable String name) {
-        ResponseEntity responseEntity = null;
+        ResponseEntity responseEntity;
         try {
             appUserService.delete(name);
-            responseEntity = ResponseEntity.noContent().build();
+            responseEntity = ResponseEntity.ok().build();
 
         } catch (NullPointerException e) {
             responseEntity = ResponseEntity.notFound().build();

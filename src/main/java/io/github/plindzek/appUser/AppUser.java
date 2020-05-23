@@ -40,7 +40,7 @@ public class AppUser implements UserDetails {
     @Setter(AccessLevel.PUBLIC)
     private String password;
 
-    @Getter(AccessLevel.PACKAGE)
+    @Getter
     @Setter(AccessLevel.PUBLIC)
     private String role;
 

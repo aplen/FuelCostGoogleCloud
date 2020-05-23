@@ -27,26 +27,17 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/users/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/users/register").permitAll()
-                .antMatchers(HttpMethod.GET,"/users/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/users/loggeduser").hasAnyRole("USER","ADMIN")
-
-                .antMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
-
                 .antMatchers(HttpMethod.GET, "/api/langs").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/cars").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/cars/**").hasRole("ADMIN")
 
+                .antMatchers("/login.html").permitAll()
                 .antMatchers("/register.html").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/images/**").permitAll()
-                .antMatchers("/css/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and().formLogin()
-                .loginProcessingUrl("/login.html").permitAll()
                 .loginPage("/login.html").permitAll()
                 .failureUrl("/login?error=true").permitAll()
 

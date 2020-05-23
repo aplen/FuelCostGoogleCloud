@@ -1,6 +1,7 @@
     (function main() {
         //          const API_URL = 'https://wise-mantra-270807.appspot.com/api';
         const API_URL = 'http://localhost:8080/api';
+        const URL = 'http://localhost:8080';
         const fuelsList = document.getElementById('fuelsList');
         var userAuthenticated = "";
         showDate();
@@ -15,24 +16,9 @@
         const pbPrice = document.getElementById('pbPrice');
         const lpgPrice = document.getElementById('lpgPrice');
         const onPrice = document.getElementById('onPrice');
-        var confirmTxt = "Are you sure to delete select position? ";
+        const confirmTxt = "Are you sure to delete select position? ";
 
-        //        //TODO langvalue pobrac i username pobrać = logged user get
-        //        fetch(`${API_URL}?${welcomeForm.elements.lang.value}`)
-        //                    .then(response => response.text())
-        //                    .then((text) => {
-        //                        document.getElementById('welcome').innerHTML = `
-        //                <h2>${text}</br></br>Enter car data or choose from list:</h2>`;
-        //                    });
-        fetch(`${"http://localhost:8080"}/users/loggedUser`)
-            .then(processOkUser)
-            .then(resp => resp.text())
-            .then(resp => {
-                document.getElementById('loggedUser').innerHTML = `Current user: ${resp}`;
-                userAuthenticated = resp;
-            });
-
-
+        //"cars list" and "add new car" section
         fetch(`${API_URL}/cars`)
             .then(processOkResponse)
             .then(cars => cars.forEach(displayCar));
@@ -90,32 +76,37 @@
 
 
         document.getElementById('addCar').addEventListener('click', (event) => {
-            event.preventDefault();
-            fetch(`${API_URL}/cars`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: carName.value,
-                        username: userAuthenticated,
-                        lpgPowered: !lpgOn100Km.disabled,
-                        pbPowered: !pbOn100Km.disabled,
-                        onPowered: !onOn100Km.disabled,
-                        onOn100Km: onOn100Km.value,
-                        lpgOn100Km: lpgOn100Km.value,
-                        pbOn100Km: pbOn100Km.value
+            if (onOn100Km.checkValidity() && pbOn100Km.checkValidity() && lpgOn100Km.checkValidity()) {
+                event.preventDefault();
+                fetch(`${API_URL}/cars`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: carName.value,
+                            username: userAuthenticated,
+                            lpgPowered: !lpgOn100Km.disabled,
+                            pbPowered: !pbOn100Km.disabled,
+                            onPowered: !onOn100Km.disabled,
+                            onOn100Km: onOn100Km.value,
+                            lpgOn100Km: lpgOn100Km.value,
+                            pbOn100Km: pbOn100Km.value
+                        })
                     })
-                })
-                .then(processOkResponse)
-                .then(displayCar)
-                .then(fuelFieldsDisable)
-                .catch(console.warn);
+                    .then(processOkResponse)
+                    .then(displayCar)
+                    .then(fuelFieldsDisable)
+                    .then(document.getElementById('addCarInfo').innerHTML = `<h3>car successfully saved in your database</h3>`)
+                    .catch(console.warn);
+            } else {
+                document.getElementById('addCarInfo').innerHTML = `<h3>only integers or float with dot allowed (eg. 10 or 10.00)</h3>`;
+            }
         });
 
         function displayCar(car) {
-            if (car.username==userAuthenticated||car.username=="default user") {
+            if (car.username === userAuthenticated || "default user") {
                 const label = document.createElement('label');
                 label.classList.add('pure-checkbox');
 
@@ -175,44 +166,102 @@
 
         document.getElementById('clearButton').addEventListener('click', (event) => {
             event.preventDefault();
-            document.forms[0].reset();
+            document.forms[1].reset();
         });
 
+        //final window section
         function sendData(car) {
 
             document.getElementById('calculateButton').addEventListener('click', (event) => {
                 event.preventDefault();
+                if (kmOnLpg.checkValidity() && kmOnPb.checkValidity() && kmOnOn.checkValidity() && lpgPrice.checkValidity() && onPrice.checkValidity() && pbPrice.checkValidity()) {
+                    const finishForm = document.getElementById('inputLast');
+                    const tripDataObj = {};
 
-                const finishForm = document.getElementById('inputLast');
-                const tripDataObj = {};
-
-                fetch(`${API_URL}/fuelcost/${car.id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            kmOnLpg: finishForm.elements.kmOnLpg.value,
-                            kmOnPb: finishForm.elements.kmOnPb.value,
-                            kmOnOn: finishForm.elements.kmOnOn.value,
-                            lpgPrice: finishForm.elements.lpgPrice.value,
-                            pbPrice: finishForm.elements.pbPrice.value,
-                            onPrice: finishForm.elements.onPrice.value,
+                    fetch(`${API_URL}/fuelcost/${car.id}`, {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                kmOnLpg: finishForm.elements.kmOnLpg.value,
+                                kmOnPb: finishForm.elements.kmOnPb.value,
+                                kmOnOn: finishForm.elements.kmOnOn.value,
+                                lpgPrice: finishForm.elements.lpgPrice.value,
+                                pbPrice: finishForm.elements.pbPrice.value,
+                                onPrice: finishForm.elements.onPrice.value,
+                            })
                         })
-                    })
-                    .then(processOkResponse)
-                    .then((text) => {
-                        document.getElementById('result').innerHTML = `
+                        .then(processOkResponse)
+                        .then((text) => {
+                            document.getElementById('result').innerHTML = `
                     <h2>The cost of trip is ${text}PLN!</h2>`;
-                    })
+                        })
 
-                .catch(console.warn);
+                    .catch(console.warn);
+                } else { document.getElementById('result').innerHTML = `
+                                             <h2>only integers or float with dot allowed (eg. 10 or 10.00)</h2>`; }
             });
         }
+        //display username
+        fetch(`${URL}/users/loggedUser`)
+            .then(processOkUser)
+            .then(resp => resp.text())
+            .then(resp => {
+                document.getElementById('loggedUser').innerHTML = `Current user: ${resp}`;
+                userAuthenticated = resp;
+                if (resp === "admin") {
+                    document.getElementById("adminbtn").disabled = false;
+                }
+            });
+
+        //users list view section
+        document.getElementById('adminbtn').addEventListener('click', (event) => {
+            event.preventDefault();
+            fetch(`${URL}/users`)
+                .then(processOkResponse)
+                .then(users => users.forEach(displayUser));
+
+            function displayUser(appUser) {
+                const label = document.createElement('label');
+                label.style = "white-space: pre;";
+                label.classList.add('pure-checkbox');
+
+                var delTxt = document.createTextNode("delete user");
+                var delUserButton = document.createElement('button');
+                delUserButton.classList.add('pure-button-primary');
+                delUserButton.appendChild(delTxt);
+                delUserButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (confirm("removing " + `${appUser.username}` + " from database") && `${appUser.username}` !== "admin") {
+                        fetch(`${URL}/users/${appUser.username}`, {
+                                method: 'DELETE'
+                            })
+                            .then((response) => {
+                                if (response.ok) {
+                                    label.remove();
+                                    return response.ok;
+                                }
+                                alert(`HTTP status not OK  (${response.status})`);
+                                throw new Error(`Status not 200 (${response.status})`);
+                            })
+                            .catch(console.warn);
+                    }
+                });
+                label.appendChild(document.createTextNode('Name: ' + `${appUser.username}` + ',\nlang: ' + `${appUser.langId}` + ',\nrole: ' +
+                    `${appUser.role}` + ',\npass: ' + `${appUser.password}`));
+                label.appendChild(document.createElement("br"));
+                label.appendChild(document.createTextNode(' '));
+                label.appendChild(delUserButton);
+                document.getElementById('allUsers').appendChild(label);
+            }
+            document.getElementById('usersSection').style = "display:inline;";
+            document.getElementById('twoColumns').style = "display:none;";
+        });
 
 
-
+        //prices show section
         getActualPrices();
 
         function getActualPrices() {
@@ -225,7 +274,7 @@
                     })
             });
         }
-
+        //other functions
         function showDate() {
             const now = new Date();
             const currentYear = now.getFullYear().toString();

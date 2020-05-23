@@ -21,8 +21,7 @@
     <main style=" margin: auto">
 
         <div id="welcome" style="text-align: center">
-            <h2>Welcome</h2>
-            <label id="loggedUser">no user</label>
+            <h2>Welcome :)</h2><label id="loggedUser">no user</label>
         </div>
 
                <div id="twoColumns" class="pure-g" style="width: initial; text-align: center;">
@@ -38,17 +37,17 @@
                               <option value='ON'>ON</option>
                           </select>
                     </div>
-
-                    <input id="pbOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="PB consumption l/100km" disabled autocomplete="off">
-                    <input id="lpgOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="LPG consumption l/100km" disabled autocomplete="off">
-                    <input id="onOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="ON consumption l/100km" disabled autocomplete="off">
+                    <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="pbOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="PB consumption l/100km" disabled autocomplete="off">
+                    <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="lpgOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="LPG consumption l/100km" disabled autocomplete="off">
+                    <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="onOn100Km" class="pure-input-rounded pure-input-2-3" placeholder="ON consumption l/100km" disabled autocomplete="off">
                     <br />
                     <br />
-                    <button id="addCar" class="pure-button pure-button-primary">save car</button>
+                    <input id="addCar" class="pure-button pure-button-primary" type="submit" value="save car">
+                    <label id="addCarInfo"></label>
                     </fieldset>
                 </form>
             </div>
-            <div class="pure-u-1-2">
+            <div id='allCarsDiv' class="pure-u-1-2">
                 <form id="allCarsForm" class="pure-form" >
                     <fieldset id="allCars" style="text-align: left;">
                         <label id="carListTitle" style="text-align: left;">
@@ -57,7 +56,17 @@
                     </fieldset>
                 </form>
             </div>
-
+               </div>
+        <div id="usersSection" class="pure-g" style="display:none; width: initial;">
+        <div class="pure-u-1-1">
+            <form id="allUsersForm" class="pure-form" >
+                <fieldset id="allUsers" style="text-align: center;">
+                    <label id="userListTitle">
+                        <h3>Saved users list:</h3>
+                    </label>
+                </fieldset>
+            </form>
+        </div>
         </div>
 
         <form id="mainForm" class="pure-form" style="display: none; margin:auto; text-align: center ">
@@ -82,23 +91,24 @@
                 <br />
                 <hr />
                 <label id='fillYourneyAndPriceTitle'> Fill fields with yourney length and fuel price: </label>
-                <input id="kmOnPb" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on PB" disabled autocomplete="off">
-                <input id="kmOnLpg" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on LPG" disabled autocomplete="off">
-                <input id="kmOnOn" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on ON" disabled autocomplete="off">
-                <input id="pbPrice" class="pure-input-rounded pure-input-2-3" placeholder="PB price" disabled autocomplete="off">
-                <input id="lpgPrice" class="pure-input-rounded pure-input-2-3" placeholder="LPG price" disabled autocomplete="off">
-                <input id="onPrice" class="pure-input-rounded pure-input-2-3" placeholder="ON price" disabled autocomplete="off">
-                <br />
-                <br />
+                <form>
+                <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="kmOnPb" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on PB" disabled autocomplete="off">
+                <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="kmOnLpg" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on LPG" disabled autocomplete="off">
+                <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="kmOnOn" class="pure-input-rounded pure-input-2-3" placeholder="kilometers driven on ON" disabled autocomplete="off">
+                <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="pbPrice" class="pure-input-rounded pure-input-2-3" placeholder="PB price" disabled autocomplete="off">
+                <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="lpgPrice" class="pure-input-rounded pure-input-2-3" placeholder="LPG price" disabled autocomplete="off">
+                <input type="text" pattern="[0-9]{0,8}\.{0,1}[0-9]{0,8}$" id="onPrice" class="pure-input-rounded pure-input-2-3" placeholder="ON price" disabled autocomplete="off">
+                <br /><br />
                 <button id="clearButton" class="pure-button pure-button-primary">clear fields</button>
-                <button id="calculateButton" class="pure-button pure-button-primary">calculate fuel cost</button>
-                <label id="result">
-                    
-                </label>
+                <input id="calculateButton" class="pure-button pure-button-primary" type="submit" value="calculate fuel cost">
+                </form>
+                    <label id="result"></label>
             </fieldset>
         </form>
+
+
         <footer id="footer" style='margin-left:auto; margin-right:auto;margin-bottom: 0px; margin-top: 10%; width: 20%'>
-            <button id="adminbtn" class="pure-button pure-button-primary pure-u-1">admin panel</button>
+            <button id="adminbtn" class="pure-button pure-button-primary pure-u-1" disabled>admin panel</button>
             <p><a href="/index.html" class="pure-button pure-button-primary pure-u-1">Back to home page</a></p>
             <p><a href="/logout" class="pure-button pure-button-primary pure-u-1">logout</a></p>
             <label id="footerDate" style='margin-top:20px; width: 40%;'></label>

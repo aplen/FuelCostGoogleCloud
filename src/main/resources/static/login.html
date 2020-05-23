@@ -3,43 +3,46 @@
 
 <head>
     <title>Login page</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+          integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
     <style>
         body{
         background-image: url('images/1.jpg');
         background-repeat: inherit;
         background-position: center;
         }
+
     </style>
 </head>
 <body>
-
-
-
 <div id="welcome" style="text-align: center">
-    <h2>Please enter your creditentials</h2>
+    <h2>Please enter your creditentials <br/> or try admin mode (login:admin pass:admin)</h2>
 </div>
 
-<form id="welcomeForm" class="pure-form pure-g pure-form-aligned" style='letter-spacing:normal; width: 40%; margin: auto;'>
+<form id="welcomeForm" class="pure-form pure-g pure-form-aligned"
+      style='letter-spacing:normal; width: 40%; margin: auto;'>
     <label id="loginResp" style="color:red;"></label>
-    <input class="pure-input-rounded pure-u-1" type="text" name="username" placeholder="Enter Your name" autocomplete="off">
-    <input style='margin-bottom:10px;' class="pure-input-rounded pure-u-1" type="password" name="password" placeholder="Enter Your password" autocomplete="off">
+    <input class="pure-input-rounded pure-u-1" type="text" name="username" placeholder="Enter Your name"
+           autocomplete="off">
+    <input style='margin-bottom:10px;' class="pure-input-rounded pure-u-1" type="password" name="password"
+           placeholder="Enter Your password" autocomplete="off">
     <div style="width:40%; margin:auto;">
-    <a id="logbtn"  class="pure-button pure-button-primary pure-u-1" type="submit" style='margin-bottom:20px;'>login</a>
-   </div>
-    <div style="width: 40%; margin: auto;">
-        <a href="/register.html" id="regbtn"  class="pure-button pure-button-primary pure-u-1" type="submit" style='margin-bottom:20px;'>register</a>
+        <a id="logbtn" class="pure-button pure-button-primary pure-u-1" type="submit"
+           style='margin-bottom:20px;'>login</a>
     </div>
-    <a href="/oauth2/authorization/github" class="pure-button pure-button-primary pure-u-1" style='margin-bottom:10px;'>or login with GitHub</a>
+    <div style="width: 40%; margin: auto;">
+        <a href="/register.html" id="regbtn" class="pure-button pure-button-primary pure-u-1" type="submit"
+           style='margin-bottom:20px;'>register</a>
+    </div>
+    <a href="/oauth2/authorization/github" class="pure-button pure-button-primary pure-u-1" style='margin-bottom:10px;'>or
+        login with GitHub</a>
 </form>
 
 <footer id="footer" style='margin-left:auto; margin-right:auto;margin-bottom: 0px; margin-top: 10%; width: 20%'>
-    <p><a href="/index.html" >Back to home page</a></p>
     <label id="footerDate" style='margin-top:20px; width: 40%;'></label>
 </footer>
 
 <script type="application/javascript" src="/js/login.js"></script>
-
 </body>
 </html>

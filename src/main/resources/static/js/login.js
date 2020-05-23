@@ -14,24 +14,24 @@
             document.getElementById('logbtn').addEventListener('click', (event) => {
 
                 fetch(`${URL}/users/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'text/html',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: welcomeForm.elements.username.value,
-                        password: welcomeForm.elements.password.value
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'text/html',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: welcomeForm.elements.username.value,
+                            password: welcomeForm.elements.password.value
+                        })
                     })
-                })
-.then(response =>response.text())
-            .then(response => {
-                if(response==="User logged"){
-                    window.location = `${URL}/index.html`;
-                    } else {
-                document.getElementById('loginResp').innerHTML = `${response}`;
-    }
-            });
+                    .then(response => response.text())
+                    .then(response => {
+                        if (response === "User logged") {
+                            window.location = `${URL}/index.html`;
+                        } else {
+                            document.getElementById('loginResp').innerHTML = `${response}`;
+                        }
+                    });
 
             });
         }

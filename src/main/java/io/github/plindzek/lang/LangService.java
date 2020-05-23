@@ -1,5 +1,6 @@
 package io.github.plindzek.lang;
 
+import io.github.plindzek.appUser.AppUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,11 @@ class LangService {
     static final Lang FALLBACK_LANG = new Lang(2, "Hello", "en", "Name of car: ", "LPG l/100km", "LPG price: ", "km on LPG: ", "pb l/100km", "PB95 price: ", "km on PB95: ", "Trip cost: ", "calculate", "exit", "save", "use this car");
 
     private LangRepository langRepository;
+    private AppUserService appUserService;
 
-    LangService(LangRepository langRepository) {
+    LangService(LangRepository langRepository, AppUserService appUserService) {
         this.langRepository = langRepository;
+        this.appUserService = appUserService;
     }
 
     /*
@@ -33,8 +36,8 @@ class LangService {
     String prepareLogin(Integer langId) {
         langId = Optional.ofNullable(langId).orElse(FALLBACK_LANG.getLangId());
         var welcomeMsg = langRepository.findById(langId).orElse(FALLBACK_LANG).getWelcomeMsg();
-//        var nameToWelcome = Optional.ofNullable(appUser.getUsername()).orElse(FALLBACK_NAME);
-        return welcomeMsg + "<br />" + FALLBACK_NAME + "!";
+       var nameToWelcome = Optional.ofNullable(appUserService.getLoggedUserName()).orElse(FALLBACK_NAME);
+        return welcomeMsg + "<br />" + nameToWelcome + "!";
     }
 
 }

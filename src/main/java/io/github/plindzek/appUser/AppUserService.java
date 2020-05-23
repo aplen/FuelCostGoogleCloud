@@ -2,9 +2,11 @@ package io.github.plindzek.appUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +15,6 @@ import java.util.List;
 public
 class AppUserService implements UserDetailsService {
     private AppUserRepository appUserRepository;
-
 
 
     private final Logger logger = LoggerFactory.getLogger(AppUserService.class);
@@ -25,10 +26,10 @@ class AppUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         logger.info("Request from Spring SEC for find UserDetails got");
-        return appUserRepository.findByUsername(s).orElseThrow(()->new UsernameNotFoundException("no user: " + s));
+        return appUserRepository.findByUsername(s).orElseThrow(() -> new UsernameNotFoundException("no user: " + s));
     }
 
-    public AppUser findByName(String name) throws UsernameNotFoundException{
+    public AppUser findByName(String name) throws UsernameNotFoundException {
         logger.info("Request for find AppUser got");
         return appUserRepository.findByUsername(name).orElseThrow(() -> new UsernameNotFoundException("No user found with username " + name));
     }
@@ -50,4 +51,16 @@ class AppUserService implements UserDetailsService {
         appUserRepository.delete(appUser.orElseThrow(() -> new UsernameNotFoundException("No user found with username " + name)));
     }
 
+    public String getLoggedUserName(){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username;
+
+        if (authentication.getClass().equals(OAuth2AuthenticationToken.class)) {
+            username = (((OAuth2AuthenticationToken) authentication).getPrincipal().getAttributes()).get("login").toString();
+        } else {
+            username = authentication.getName();
+        }
+        return username;
+
     }
+}

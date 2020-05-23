@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -94,16 +93,9 @@ class AppUserController {
     }
 
     @GetMapping("/loggedUser")
-    String loggedUser() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username;
+    String showLoggedUserName() {
 
-        if (authentication.getClass().equals(OAuth2AuthenticationToken.class)) {
-            username = (((OAuth2AuthenticationToken) authentication).getPrincipal().getAttributes()).get("login").toString();
-        } else {
-            username = authentication.getName();
-        }
-        return username;
+return appUserService.getLoggedUserName();
     }
 
     @GetMapping

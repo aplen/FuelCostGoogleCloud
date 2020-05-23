@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser(value = "user")
 public class LangControllerTest {
 
     @Autowired
@@ -51,7 +53,6 @@ public class LangControllerTest {
                 .andExpect(jsonPath("[0].langCode", containsString("1")))
                 .andExpect(jsonPath("[0].langId", is(12)));
     }
-
     @Test
     public void shouldReturnExpectedText() throws Exception {
         //service mocking
@@ -63,7 +64,6 @@ public class LangControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Siema" + "<br />" + "kitty" + "!")));
     }
-
     @Test
     public void shouldReturnExpectedTextWithParameters() throws Exception {
 

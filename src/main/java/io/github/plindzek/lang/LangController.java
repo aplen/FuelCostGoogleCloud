@@ -24,17 +24,16 @@ class LangController {
     @GetMapping("/langs")
     ResponseEntity<List<LangDTO>> findAllLangs() {
         logger.info("Request for all langs got");
-
         return ResponseEntity.ok(langService.findAll());
     }
+
     @GetMapping
     ResponseEntity<String> welcome() {
-        return loginUserAndReturnGreeting(null);
+        return returnGreeting(null);
     }
 
     @GetMapping(params={"lang"})
-
-    ResponseEntity<String> loginUserAndReturnGreeting (@RequestParam("lang") Integer langId) {
+    ResponseEntity<String> returnGreeting(@RequestParam("lang") Integer langId) {
         logger.info("Request for lang change got");
         return ResponseEntity.status(HttpStatus.OK).body(langService.prepareLogin(langId));
     }

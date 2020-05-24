@@ -34,9 +34,11 @@ class LangService {
     }
 
     String prepareLogin(Integer langId) {
-        langId = Optional.ofNullable(langId).orElse(FALLBACK_LANG.getLangId());
+        var loggedUser = appUserService.getLoggedUserName();
+        langId = Optional.ofNullable(langId).orElse(appUserService.findByName(loggedUser).getLangId());
+
+        var nameToWelcome = Optional.ofNullable(loggedUser).orElse(FALLBACK_NAME);
         var welcomeMsg = langRepository.findById(langId).orElse(FALLBACK_LANG).getWelcomeMsg();
-       var nameToWelcome = Optional.ofNullable(appUserService.getLoggedUserName()).orElse(FALLBACK_NAME);
         return welcomeMsg + "<br />" + nameToWelcome + "!";
     }
 

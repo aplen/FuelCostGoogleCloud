@@ -1,78 +1,38 @@
     (function main() {
-        //          const API_URL = 'https://wise-mantra-270807.appspot.com/api';
+//               const API_URL = 'https://wise-mantra-270807.appspot.com/api';
+//               const URL = 'https://wise-mantra-270807.appspot.com';
         const API_URL = 'http://localhost:8080/api';
         const URL = 'http://localhost:8080';
         const fuelsList = document.getElementById('fuelsList');
-        var userAuthenticated = "";
-        showDate();
         const carName = document.getElementById('carName');
         const pbOn100Km = document.getElementById('pbOn100Km');
         const lpgOn100Km = document.getElementById('lpgOn100Km');
         const onOn100Km = document.getElementById('onOn100Km');
-
         const kmOnPb = document.getElementById('kmOnPb');
         const kmOnLpg = document.getElementById('kmOnLpg');
         const kmOnOn = document.getElementById('kmOnOn');
         const pbPrice = document.getElementById('pbPrice');
         const lpgPrice = document.getElementById('lpgPrice');
         const onPrice = document.getElementById('onPrice');
-        const confirmTxt = "Are you sure to delete select position? ";
+        const confirmTxt = "Delete selected position?";
+ fuelsList.addEventListener("change", fuelFieldsDisable);
+                fuelFieldsDisable();
+        var userAuthenticated = "";
+        showDate();
+
+        //display username
+               fetch(`${URL}/users/loggedUser`)
+                   .then(processOkUser)
+                   .then(resp => resp.text())
+                   .then(resp => {
+                       document.getElementById('loggedUser').innerHTML = `Logged user: ${resp}`;
+                       userAuthenticated = resp;
+                       if (resp === "admin") {
+                           document.getElementById("adminbtn").disabled = false;
+                       }
+                   });
 
         //"cars list" and "add new car" section
-        fetch(`${API_URL}/cars`)
-            .then(processOkResponse)
-            .then(cars => cars.forEach(displayCar));
-
-        fuelsList.addEventListener("change", fuelFieldsDisable);
-        fuelFieldsDisable();
-
-        function fuelFieldsDisable() {
-            var fuelChosen = fuelsList.value;
-            if (fuelChosen == '') {
-                lpgOn100Km.disabled = true;
-                lpgOn100Km.value = '';
-                onOn100Km.disabled = true;
-                onOn100Km.value = "";
-                pbOn100Km.disabled = true;
-                pbOn100Km.value = "";
-            } else if (fuelChosen == "ON") {
-                lpgOn100Km.disabled = true;
-                lpgOn100Km.value = '';
-                onOn100Km.disabled = false;
-                pbOn100Km.disabled = true;
-                pbOn100Km.value = '';
-
-            } else if (fuelChosen == "PB") {
-                lpgOn100Km.disabled = true;
-                lpgOn100Km.value = '';
-                onOn100Km.disabled = true;
-                onOn100Km.value = '';
-                pbOn100Km.disabled = false;
-            } else if (fuelChosen == "LPG/PB") {
-                lpgOn100Km.disabled = false;
-                onOn100Km.disabled = true;
-                onOn100Km.value = '';
-                pbOn100Km.disabled = false;
-            }
-        };
-
-        function enableKmAndPriceFields(car) {
-            if (car.lpgPowered) {
-                kmOnLpg.removeAttribute("disabled");
-                lpgPrice.removeAttribute("disabled");
-                kmOnPb.removeAttribute("disabled");
-                pbPrice.removeAttribute("disabled");
-            } else if (car.pbPowered) {
-                kmOnPb.removeAttribute("disabled");
-                pbPrice.removeAttribute("disabled");
-            } else if (car.onPowered) {
-                kmOnOn.removeAttribute("disabled");
-                onPrice.removeAttribute("disabled")
-            } else {
-                document.getElementById('welcome').innerHTML = `<h2>choosen car has no type of fuel set</h2>`;
-            }
-        }
-
 
 
         document.getElementById('addCar').addEventListener('click', (event) => {
@@ -105,8 +65,12 @@
             }
         });
 
+        fetch(`${API_URL}/cars`)
+            .then(processOkResponse)
+            .then(cars => cars.forEach(displayCar));
+
         function displayCar(car) {
-            if (car.username === userAuthenticated || "default user") {
+            if (car.username == userAuthenticated || car.username == "default user") {
                 const label = document.createElement('label');
                 label.classList.add('pure-checkbox');
 
@@ -119,7 +83,7 @@
                 deleteButton.appendChild(delBtnTxt);
                 deleteButton.addEventListener('click', (event) => {
                     event.preventDefault();
-                    if (confirm(confirmTxt)) {
+                    if (confirm(confirmTxt)&&car.username !=="default user") {
                         fetch(`${API_URL}/cars/${car.id}`, {
                                 method: 'DELETE'
                             })
@@ -136,7 +100,7 @@
                 });
 
 
-                var useButton = document.createElement('button');
+                const useButton = document.createElement('button');
                 useButton.classList.add('pure-button-primary');
                 useButton.appendChild(useBtnTxt);
 
@@ -204,22 +168,11 @@
                                              <h2>only integers or float with dot allowed (eg. 10 or 10.00)</h2>`; }
             });
         }
-        //display username
-        fetch(`${URL}/users/loggedUser`)
-            .then(processOkUser)
-            .then(resp => resp.text())
-            .then(resp => {
-                document.getElementById('loggedUser').innerHTML = `Current user: ${resp}`;
-                userAuthenticated = resp;
-                if (resp === "admin") {
-                    document.getElementById("adminbtn").disabled = false;
-                }
-            });
-
-        //users list view section
+               //users list view section
         document.getElementById('adminbtn').addEventListener('click', (event) => {
             event.preventDefault();
             fetch(`${URL}/users`)
+            .then(document.getElementById("allUsers").innerHTML = '')
                 .then(processOkResponse)
                 .then(users => users.forEach(displayUser));
 
@@ -229,7 +182,7 @@
                 label.classList.add('pure-checkbox');
 
                 var delTxt = document.createTextNode("delete user");
-                var delUserButton = document.createElement('button');
+                const delUserButton = document.createElement('button');
                 delUserButton.classList.add('pure-button-primary');
                 delUserButton.appendChild(delTxt);
                 delUserButton.addEventListener('click', (event) => {
@@ -275,6 +228,52 @@
             });
         }
         //other functions
+        function fuelFieldsDisable() {
+                   var fuelChosen = fuelsList.value;
+                   if (fuelChosen == '') {
+                       lpgOn100Km.disabled = true;
+                       lpgOn100Km.value = '';
+                       onOn100Km.disabled = true;
+                       onOn100Km.value = "";
+                       pbOn100Km.disabled = true;
+                       pbOn100Km.value = "";
+                   } else if (fuelChosen == "ON") {
+                       lpgOn100Km.disabled = true;
+                       lpgOn100Km.value = '';
+                       onOn100Km.disabled = false;
+                       pbOn100Km.disabled = true;
+                       pbOn100Km.value = '';
+
+                   } else if (fuelChosen == "PB") {
+                       lpgOn100Km.disabled = true;
+                       lpgOn100Km.value = '';
+                       onOn100Km.disabled = true;
+                       onOn100Km.value = '';
+                       pbOn100Km.disabled = false;
+                   } else if (fuelChosen == "LPG/PB") {
+                       lpgOn100Km.disabled = false;
+                       onOn100Km.disabled = true;
+                       onOn100Km.value = '';
+                       pbOn100Km.disabled = false;
+                   }
+               };
+
+               function enableKmAndPriceFields(car) {
+                   if (car.lpgPowered) {
+                       kmOnLpg.removeAttribute("disabled");
+                       lpgPrice.removeAttribute("disabled");
+                       kmOnPb.removeAttribute("disabled");
+                       pbPrice.removeAttribute("disabled");
+                   } else if (car.pbPowered) {
+                       kmOnPb.removeAttribute("disabled");
+                       pbPrice.removeAttribute("disabled");
+                   } else if (car.onPowered) {
+                       kmOnOn.removeAttribute("disabled");
+                       onPrice.removeAttribute("disabled")
+                   } else {
+                       document.getElementById('welcome').innerHTML = `<h2>choosen car has no type of fuel set</h2>`;
+                   }
+               }
         function showDate() {
             const now = new Date();
             const currentYear = now.getFullYear().toString();

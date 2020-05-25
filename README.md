@@ -24,4 +24,5 @@ Allowed HTTPs requests:
 
 `DELETE`/api/cars/{car id}<br/> **return:** 
 <br/>HTTP200 when delete success
-<br/>HTTP403 when access forbidden (only admin mode)
+
+23.05.2020 big update with Spring Security - users database, each user has own car list, add login with Github

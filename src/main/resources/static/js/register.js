@@ -1,8 +1,6 @@
     (function main() {
-//        const API_URL = 'https://wise-mantra-270807.appspot.com/api';
 //        const URL = 'https://wise-mantra-270807.appspot.com';
         const URL = 'http://localhost:8080';
-        const API_URL = 'http://localhost:8080/api';
         var username;
 
         showDate();
@@ -14,7 +12,7 @@
                 'en': '🇺🇸',
                 'de': '🇩🇪'
             };
-            fetch(`${API_URL}/langs`)
+            fetch(`${URL}/api/langs`)
                 .then(processOkResponse)
                 .then(langArr => {
                     document.getElementById('langs').innerHTML = langArr.map(lang => `

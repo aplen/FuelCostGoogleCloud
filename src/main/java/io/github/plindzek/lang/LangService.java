@@ -42,6 +42,9 @@ class LangService {
         return welcomeMsg + "<br />" + nameToWelcome + "!";
     }
 
+    Lang findById(Integer langId) {
+        return langRepository.findById(langId).orElse(FALLBACK_LANG);
+    }
 }
 
 

@@ -1,8 +1,7 @@
     (function main() {
-//               const API_URL = 'https://wise-mantra-270807.appspot.com/api';
-//               const URL = 'https://wise-mantra-270807.appspot.com';
-        const API_URL = 'http://localhost:8080/api';
+//        const URL = 'https://wise-mantra-270807.appspot.com';
         const URL = 'http://localhost:8080';
+
         const fuelsList = document.getElementById('fuelsList');
         const carName = document.getElementById('carName');
         const pbOn100Km = document.getElementById('pbOn100Km');
@@ -14,10 +13,14 @@
         const pbPrice = document.getElementById('pbPrice');
         const lpgPrice = document.getElementById('lpgPrice');
         const onPrice = document.getElementById('onPrice');
-        const confirmTxt = "Delete selected position?";
- fuelsList.addEventListener("change", fuelFieldsDisable);
-                fuelFieldsDisable();
+        const usersSection = document.getElementById('usersSection');
+        const twoColumns = document.getElementById('twoColumns');
+        const mainForm = document.getElementById('mainForm');
+        var txtConfirm = "Delete selected position?";
         var userAuthenticated = "";
+
+        fuelsList.addEventListener("change", fuelFieldsDisable);
+        fuelFieldsDisable();
         showDate();
 
         //display username
@@ -32,13 +35,11 @@
                        }
                    });
 
-        //"cars list" and "add new car" section
-
-
+        //add new car to list
         document.getElementById('addCar').addEventListener('click', (event) => {
             if (onOn100Km.checkValidity() && pbOn100Km.checkValidity() && lpgOn100Km.checkValidity()) {
                 event.preventDefault();
-                fetch(`${API_URL}/cars`, {
+                fetch(`${URL}/api/cars`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -64,8 +65,8 @@
                 document.getElementById('addCarInfo').innerHTML = `<h3>only integers or float with dot allowed (eg. 10 or 10.00)</h3>`;
             }
         });
-
-        fetch(`${API_URL}/cars`)
+        //display car list
+        fetch(`${URL}/api/cars`)
             .then(processOkResponse)
             .then(cars => cars.forEach(displayCar));
 
@@ -83,8 +84,8 @@
                 deleteButton.appendChild(delBtnTxt);
                 deleteButton.addEventListener('click', (event) => {
                     event.preventDefault();
-                    if (confirm(confirmTxt)&&car.username !=="default user") {
-                        fetch(`${API_URL}/cars/${car.id}`, {
+                    if (confirm(txtConfirm)&&car.username !=="default user") {
+                        fetch(`${URL}/api/cars/${car.id}`, {
                                 method: 'DELETE'
                             })
                             .then((response) => {
@@ -99,11 +100,9 @@
                     }
                 });
 
-
                 const useButton = document.createElement('button');
                 useButton.classList.add('pure-button-primary');
                 useButton.appendChild(useBtnTxt);
-
                 useButton.addEventListener('click', (event) => {
                     event.preventDefault();
                     document.getElementById('twoColumns').remove();
@@ -142,7 +141,7 @@
                     const finishForm = document.getElementById('inputLast');
                     const tripDataObj = {};
 
-                    fetch(`${API_URL}/fuelcost/${car.id}`, {
+                    fetch(`${URL}/api/fuelcost/${car.id}`, {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',
@@ -209,8 +208,9 @@
                 label.appendChild(delUserButton);
                 document.getElementById('allUsers').appendChild(label);
             }
-            document.getElementById('usersSection').style = "display:inline;";
-            document.getElementById('twoColumns').style = "display:none;";
+            usersSection.style = "display:inline;";
+            twoColumns.style = "display:none;";
+            mainForm.style = "display:none;";
         });
 
 
@@ -220,7 +220,7 @@
         function getActualPrices() {
             document.getElementById('showPrices').addEventListener('click', (event) => {
                 event.preventDefault();
-                fetch(`${API_URL}/prices`)
+                fetch(`${URL}/api/prices`)
                     .then(processOkResponse)
                     .then(price => {
                         document.getElementById('addPrices').innerHTML = price;

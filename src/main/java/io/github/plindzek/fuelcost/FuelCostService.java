@@ -15,31 +15,39 @@ import org.springframework.stereotype.Service;
 class FuelCostService {
     private final Logger logger = LoggerFactory.getLogger(FuelCostService.class);
     private CarRepository carRepository;
-    private FuelCost fuelCost;
+    FuelCost fuelCost;
 
     FuelCostService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
 
+
     double calcCost(Integer id, Trip trip) {
         logger.info("Request got with car id " + id + " and " + trip);
         var car = carRepository.findById(id).orElse(null);
-        selectFuel(car);
-        return fuelCost.calculateFuelCost(car, trip);
+
+
+            if (car.isOnPowered()) {
+fuelCost = ()-> (Math.round((car.getOnOn100Km() * trip.getOnPrice()* trip.getKmOnOn() / 100) * 100.0))
+        / 100.0;
+            } else if (car.isLpgPowered()) {
+              fuelCost = ()->  ((Math.round((car.getLpgOn100Km() * trip.getLpgPrice()* trip.getKmOnLpg() / 100) * 100.0))
+                        + (Math.round((car.getPbOn100Km() * trip.getPbPrice()* trip.getKmOnPb() / 100) * 100.0)))
+                        / 100.0;
+
+
+            } else if (car.isPbPowered()) {
+                fuelCost = ()->(Math.round((car.getPbOn100Km() * trip.getPbPrice()* trip.getKmOnPb() / 100) * 100.0))
+                        / 100.0;
+            } else {
+                fuelCost = ()->0.00;
+            }
+
+                   return fuelCost.calculateFuelCost(); }
+
     }
 
-    FuelCost selectFuel(Car car) {
-        if (car.isOnPowered()) {
-            fuelCost = new OnCost();
-        } else if (car.isLpgPowered()) {
-            fuelCost = new LpgCost();
-        } else if (car.isPbPowered()) {
-            fuelCost = new PbCost();
-        } else {
-            fuelCost = new NoFuelCost();
-        }
-        return fuelCost;
-    }
-}
+
+
 
 

@@ -3,7 +3,8 @@ import io.github.plindzek.car.Car;
 /**
  * @author Adam
  */
-public interface FuelCost {
+@FunctionalInterface
+public interface  FuelCost {
 
-    double calculateFuelCost(Car car, Trip trip);
+    double calculateFuelCost();
 }

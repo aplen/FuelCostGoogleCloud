@@ -28,29 +28,6 @@ mockTrip.setKmOnLpg(100);
         assertThat(fuelCostService.calcCost(1, mockTrip)).isEqualTo(105);
     }
 
-    @Test
-    public void shouldReturnLpgCostObject() {
 
-        mockCar.setLpgPowered(true);
-        assertThat((fuelCostService.selectFuel(mockCar).getClass().getName())).isEqualTo("io.github.plindzek.fuelcost.LpgCost");
-    }
-
-    @Test
-    public void shouldReturnPbCostObject() {
-        mockCar.setPbPowered(true);
-        assertThat((fuelCostService.selectFuel(mockCar).getClass().getName())).isEqualTo("io.github.plindzek.fuelcost.PbCost");
-    }
-
-    @Test
-    public void shouldReturnOnCostObject() {
-        mockCar.setOnPowered(true);
-        assertThat((fuelCostService.selectFuel(mockCar).getClass().getName())).isEqualTo("io.github.plindzek.fuelcost.OnCost");
-    }
-
-    @Test
-    public void shouldReturnNoCostObject() {
-        assertThat((fuelCostService.selectFuel(mockCar).getClass().getName())).isEqualTo("io.github.plindzek.fuelcost.NoFuelCost");
-
-    }
 
 }

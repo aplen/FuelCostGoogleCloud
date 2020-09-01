@@ -44,7 +44,7 @@ class AppUserController {
 
         } else {
             try {
-                var appUserFromDb = appUserService.findByName(appUser.getUsername());
+                appUserService.findByName(appUser.getUsername());
                 response = "User exist";
 
             } catch (UsernameNotFoundException e) {

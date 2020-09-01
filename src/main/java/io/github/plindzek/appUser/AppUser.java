@@ -12,10 +12,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
-/**
- * @author Adam
- *  AppUser entity
- */
 @Data
 @Setter(AccessLevel.PACKAGE)
 @Entity

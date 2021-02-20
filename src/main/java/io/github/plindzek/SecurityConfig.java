@@ -32,6 +32,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/langs").permitAll()
 
                 .antMatchers("/login.html").permitAll()
+                .antMatchers("/robots.txt").permitAll()
                 .antMatchers("/register.html").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/images/**").permitAll()

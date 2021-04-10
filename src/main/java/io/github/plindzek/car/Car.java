@@ -3,6 +3,7 @@ package io.github.plindzek.car;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Adam
@@ -18,10 +19,13 @@ class Car {
     private Integer id;
     private String name;
     private String username;
+    @NotNull
     @Column(name = "lpgpowered")
     private boolean lpgPowered;
+    @NotNull
     @Column(name = "pbpowered")
     private boolean pbPowered;
+    @NotNull
     @Column(name = "onpowered")
     private boolean onPowered;
     @Column(name = "onon100km")

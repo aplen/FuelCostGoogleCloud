@@ -1,6 +1,5 @@
 package io.github.plindzek.fuelcost;
 
-import io.github.plindzek.car.Car;
 import io.github.plindzek.car.CarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,12 +8,11 @@ import org.springframework.stereotype.Service;
 /**
  * @author Adam
  * Service receives data needed to calc fuel cost and returns result
- * Strategy Pattern is used to create proper object in dependence of which fuel is chosen
  */
 @Service
 class FuelCostService {
     private final Logger logger = LoggerFactory.getLogger(FuelCostService.class);
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
     FuelCost fuelCost;
 
     FuelCostService(CarRepository carRepository) {

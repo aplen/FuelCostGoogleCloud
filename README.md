@@ -1,9 +1,11 @@
 # FuelCostSpringWebapp
 
-![alt text](https://github.com/aplen/FuelCostGoogleCloud/blob/master/scr.jpg?raw=true)
-
 <p>Calculate cost of fuel used in Your trip.
 Java SpringBoot webapp.</p>
+
+![alt text](https://github.com/aplen/FuelCostGoogleCloud/blob/master/scr.jpg?raw=true)
+
+
 - Spring Security, with users database, OAUTH2 login with Github and admin panel</p>
 - cars database with default cars and ability to add and delete your own cars visible only for You</p>
 - scrapping actual fuel prices</p> 
